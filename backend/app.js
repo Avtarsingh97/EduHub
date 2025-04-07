@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const cookieparser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 require("./config/db");
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use(cookieparser());
+app.use(cookieParser());
 
 app.use(config.PREFIX,routes);
 
