@@ -14,7 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(cookieParser());
-
+app.get('/', (req, res) => {
+    res.redirect(config.PREFIX);
+  });
 app.use(config.PREFIX,routes);
 
 
