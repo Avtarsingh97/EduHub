@@ -12,7 +12,7 @@ mongoose.connect(config.DB_URL)
 
 
 mongoose.connection.on('connected',()=>{
-    console.log('Mongoose default connection open to ' + congif.DB_URL);
+    console.log('Mongoose default connection open');
 });
 
 mongoose.connection.on('error',(error)=>{
@@ -20,7 +20,7 @@ mongoose.connection.on('error',(error)=>{
 });
 
 mongoose.connection.on('disconnected',()=>{
-    console.log('Mongoose Dsiconnected');
+    console.log('Mongoose Disconnected');
 });
 
 process.on('SIGINT',()=>{
