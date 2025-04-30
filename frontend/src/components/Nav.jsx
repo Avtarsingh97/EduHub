@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const signupMentorBtnClick = () => navigate('/signup/mentor');
+  const signupStudentBtnClick = () => navigate('/signup/student');
+
   return (
     <>
       <div className='bg-white'>
@@ -30,7 +35,8 @@ function Nav() {
             {/* Desktop Navigation Menu when user is not logged in */}
             <ul className='items-center hidden space-x-8 lg:flex'>
               <li>
-                <button className='h-12 px-6 font-medium tracking-wide text-gray border-4 border-green-500 bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300 hover:text-white'>
+                <button className='h-12 px-6 font-medium tracking-wide text-gray border-4 border-green-500 bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300 hover:text-white'
+                onClick={signupMentorBtnClick}>
                   Become a Mentor with Us
                 </button>
               </li>
@@ -40,7 +46,8 @@ function Nav() {
                 </button>
               </li>
               <li>
-                <button className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300'>
+                <button className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300'
+                onClick={signupStudentBtnClick}>
                   Sign Up
                 </button>
               </li>
@@ -51,7 +58,8 @@ function Nav() {
               <div className='absolute top-16 left-0 w-full bg-white shadow-lg p-4 space-y-4 lg:hidden z-10'>
                 <div className='py-5 flex flex-col gap-4'>
                   {/* Mentor Section */}
-                  <button className='block w-full text-center py-2 font-medium tracking-wide text-gray-800 border-4 border-green-500 bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300 hover:text-white'>
+                  <button className='block w-full text-center py-2 font-medium tracking-wide text-gray-800 border-4 border-green-500 bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300 hover:text-white'
+                  onClick={signupMentorBtnClick}>
                     Become a Mentor with Us
                   </button>
 
@@ -61,7 +69,8 @@ function Nav() {
                   </button>
 
                   {/* SignUp */}
-                  <button className='block w-full text-center py-2 font-medium tracking-wide text-white bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300'>
+                  <button className='block w-full text-center py-2 font-medium tracking-wide text-white bg-green-500 rounded-md hover:bg-green-600 transition-all duration-300'
+                  onClick={signupStudentBtnClick}>
                     Sign Up
                   </button>
                 </div>
