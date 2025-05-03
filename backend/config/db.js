@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const config = require('.'); // '.' will bydefault pick index file
-mongoose.set('strictQuery', true); //strictQuery - means data we are sending with the help of mongoose is going to be in the strict mode in the queries, means if we include any field in our query which is not defined inside mongo schema that could be ignored and not passed to the query.
+const config = require('.'); 
+mongoose.set('strictQuery', true); 
 
 
 mongoose.connect(config.DB_URL)

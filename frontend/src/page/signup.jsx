@@ -16,7 +16,7 @@ const Signup = () => {
 
     const onSubmit = async(data)=>{
         setIsLoading(true);
-        console.log(data,role);
+        
         const formData = {
             ...data,
             role
