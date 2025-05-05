@@ -26,16 +26,19 @@ const userSchema = new Schema({
         unique:true
     },
     role:{
-        type:Schmea.Types.String,
+        type:Schema.Types.String,
         enum:['mentor','student'],
         default:null
     }
 })
 
+userSchema.methods.isPasswordMatch = async function(password){
+    return bcrypt.compare(password,this.password);
+};
 
 userSchema.pre('save', async function(next){
     if(this.isModified('password')){
-        this.passowrd = await bcrypt.hash(this.password,8);
+        this.password = await bcrypt.hash(this.password,8);
     }
     next();
 });

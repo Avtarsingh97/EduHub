@@ -22,12 +22,14 @@ const Signup = () => {
             role
         }
         try{
-          await auth.signup(formData);
+          const response = await auth.signup(formData);
+          console.log("response", response.data.message);
+
           reset();
           toast.success("Account Created Successfully");
           navigate("/signin");
         }catch(error){
-            console.log(error);
+            console.log("SignUp Error",error);
         }
     }
   return (

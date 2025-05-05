@@ -1,17 +1,17 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 
-const signupValidation=Joi.object().key({
+const signUpValidation=Joi.object().keys({
     name:Joi.string().required().trim(),
     username:Joi.string().required().trim(),
     email:Joi.string().required().trim(),
-    passsword:Joi.string().required().min(8),
-    role:Joi.string().valid('mentor','student'.required())
-})
+    password:Joi.string().required().min(8),
+    role:Joi.string().valid('mentor','student').required(),
+});
 
-const signinValidation = Joi.object().key({
+const signInValidation = Joi.object().keys({
     email:Joi.string().required().trim(),
-    passsword:Joi.string().required()
+    password:Joi.string().required(),
 })
 
-module.exports = {signupValidation,signinValidation};
+module.exports = {signUpValidation,signInValidation};
