@@ -21,8 +21,8 @@ const generateAuthTokens = async(user)=>{
 }
 
 const generateVerificationToken = async(userId)=>{
-    const verificationTokenExpires = moment.add(
-        config.jwt.verificationExpirationMinutes,
+    const verificationTokenExpires = moment().add(
+        config.jwt.verificationExpirationMinutes, 
         "minutes"
     )
     const verificationToken = generateToken(
@@ -40,4 +40,8 @@ const verifyToken = async(token,secret) =>{
     }
 }
 
-module.exports = {generateAuthTokens,verifyToken,generateVerificationToken}
+module.exports = {
+    generateAuthTokens,
+    verifyToken,
+    generateVerificationToken
+  };

@@ -3,6 +3,7 @@ const router=express.Router();
 const homeRoute = require('./home.route');
 const authRoute = require("./auth.route");
 const mentorRoute= require("./mentor.route");
+const userRoutes = require("./user.routes")
 
 const Routes = [
     {
@@ -16,6 +17,10 @@ const Routes = [
     {
         path:'/mentor',
         route:mentorRoute
+    },
+    {
+        path:'/user',
+        route:userRoutes
     },
 ];
 

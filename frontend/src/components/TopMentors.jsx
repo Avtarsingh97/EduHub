@@ -29,7 +29,6 @@ const TopMentors = () => {
   const fetchAllMentors = async()=>{
     try {
       const response = await mentorApi.getAllMentors();
-      console.log(response)
       const allMentors = response?.data?.mentors || [];
       setMentorsData(allMentors);
       setTopMentors(selectTopMentor(allMentors));
