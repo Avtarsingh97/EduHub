@@ -16,6 +16,9 @@ export default {
         'light-orange': '#E98074',
         'dark-orange': '#E85A4F',
       },
+      fontFamily:{
+        poppins: ["Poppins", "sans-serif"]
+      }
     },
   },
   plugins: [],

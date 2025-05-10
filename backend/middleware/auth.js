@@ -6,6 +6,7 @@ const {verifyToken}  = require("../services/token.service");
 
 const protect = async(req,res,next)=>{
     let token;
+    
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer ")){
         token = req.headers.authorization.split(" ")[1];
     }
@@ -23,6 +24,7 @@ const protect = async(req,res,next)=>{
         const decoded= await verifyToken(token,"accessToken");
         
         const currentUser = await getUserById(decoded._id);
+        
         
         if(!currentUser){
             return next(
@@ -56,6 +58,8 @@ const restrictTo = (...roles)=>{
                 )
             )
         }
+       console.log(req.user.role);
+       next();
     }
 }
 

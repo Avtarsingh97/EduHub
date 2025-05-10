@@ -10,7 +10,7 @@ const setToken=(data)=>{
 }
 
 const removeToken =()=>{
-   
+    
     return sessionStorage.removeItem(TOKEN);
 }
 

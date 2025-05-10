@@ -1,9 +1,16 @@
 import React from "react";
 import mentor from "../assets/mentor.webp";
-import mentorship from "../assets/mentorsImage1.webp";
 import Nav from "../components/Nav";
 import { NavLink } from "react-router-dom";
 import TopMentors from "../components/TopMentors";
+import { heroHome, heroMen, shapeOne, shapeTwo, shapeThree, shapeFour } from "../assets/HomePage";
+import MentoringImage from "../assets/About/about-img-3.png";
+import FeatureImage from "../assets/feature-img-1.png";
+import mentee1 from "../assets/mentee1.png";
+import { FaChalkboardTeacher, FaLink, FaBookReader, FaLightbulb, FaArrowRight } from "react-icons/fa";
+import { GiUpgrade } from "react-icons/gi";
+import features from "../data/features";
+import FeaturesCard from "../components/FeaturesCard";
 
 function Home() {
   return (
@@ -11,19 +18,54 @@ function Home() {
       <Nav />
       <div className='bg-white'>
         {/* Hero Section */}
-        <section className='relative bg-green-100 py-16 px-6 md:py-24'>
+        <section className='relative bg-teal-100 py-16 md:py-20 h-[560px] px-6 md:px-20 mx-auto max-w-screen-full '>
+          <img
+            className='absolute bottom-0 right-0 h-[520px] opacity-5'
+            src={heroHome}
+            alt='Mentorship Hub'
+          />
+          <img
+            className='absolute bottom-0 right-0 h-[460px] opacity-90'
+            src={shapeFour}
+            alt='Graphics 4'
+          />
+          <img
+            className='absolute top-0 left-0 h-[460px] opacity-90 '
+            src={shapeOne}
+            alt='Graphics 4'
+          />
+          <img
+            className='absolute top-5 left-0 h-[460px] opacity-90'
+            src={shapeTwo}
+            alt='Graphics 4'
+          />
+          <img
+            className='absolute bottom-10 left-0 h-[160px] opacity-90'
+            src={shapeThree}
+            alt='Graphics 4'
+          />
           <div className='max-w-6xl mx-auto flex flex-col md:flex-row items-center'>
             {/* Text Section */}
-            <div className='md:w-1/2 text-center md:text-left'>
-              <h1 className='text-4xl md:text-6xl font-extrabold text-green-800 leading-tight'>
-                <span className='text-5xl md:text-7xl text-green-900'>Elevate Hub:</span>
+            <div className='md:w-1/2 text-center md:text-left z-10'>
+              {/* learn with mentor button */}
+              <div className='bg-white px-2 py-2 w-[260px] rounded-full flex justify-center items-center gap-3 text-sm m-auto md:mx-0 mb-8'>
+                <div className='bg-teal-100 px-2 py-2 rounded-full'>
+                  <FaChalkboardTeacher className='text-teal-900' />
+                </div>
+                <div className='text-teal-800'>Learn with best Mentorship</div>
+              </div>
+
+              <h1 className='text-md font-extrabold text-teal-800 leading-tight'>
+                <span className='text-7xl text-teal-900'>EduHub</span>
                 <br />
-                Your journey, our guidance
+                <span className='text-2xl md:text-3xl lg:text-4xl text-teal-700'>Get The Best Mentorship From Us</span>
               </h1>
-              <p className='mt-6 text-lg md:text-2xl text-green-700'>Every great achiever was inspired by a great mentor. Find yours today!</p>
+              <p className='mt-6 text-lg md:text-xl lg:text-2xl text-teal-700'>
+                Every great achiever was inspired by a great mentor. Find yours today!
+              </p>
               <div className='mt-8'>
                 <NavLink to='/mentors'>
-                  <button className='px-8 py-3 text-white text-lg font-medium bg-green-600 rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transition duration-300'>
+                  <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-lg shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300'>
                     Match with a Mentor
                   </button>
                 </NavLink>
@@ -31,270 +73,197 @@ function Home() {
             </div>
 
             {/* Image Section */}
-            <div className='md:w-1/2 mt-12 md:mt-8 flex justify-center'>
-              <div className='relative'>
+            <div className='md:w-1/2  hidden md:flex justify-center'>
+              <div className='relative h-[460px] flex items-end'>
                 <img
-                  className='w-full max-w-lg rounded-lg shadow-lg'
-                  src={mentorship}
-                  alt='Mentorship Hub'
+                  className='max-w-lg rounded-lg z-[3]'
+                  src={heroMen}
+                  alt='EduHub Mentor Image'
                 />
                 {/* Decorative Elements */}
-                <div className='absolute inset-0 bg-green-900 bg-opacity-10 rounded-lg animate-pulse'></div>
               </div>
             </div>
           </div>
         </section>
 
         {/* About Section */}
-        <section className='relative py-16 px-6 md:py-24'>
-          <div className='max-w-6xl mx-auto flex flex-col md:flex-row items-center bg-gray-100 rounded-lg p-4'>
-            {/* left section */}
-            <div className='md:w-1/2 p-2'>
-              <img
-                className='rounded-lg'
-                src={mentor}
-                alt='Menor Image'
-              />
+        <section className='relative px-6 md:px-20 py-16 md:py-24 bg-teal-700 '>
+          <div className='max-w-6xl mx-auto flex flex-col gap-12'>
+            <div className='grid gap-8 row-gap-10 grid-cols-2'>
+              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900  rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+                <FaLink className='text-teal-600' /> Connect
+              </div>
+              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+                <GiUpgrade className='text-teal-600' />
+                Empower
+              </div>
+              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+                <FaBookReader className='text-teal-600' />
+                Learn
+              </div>
+              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+                <FaLightbulb className='text-teal-600' />
+                Inspire
+              </div>
             </div>
 
-            {/* right section */}
-            <div className='md:w-1/2 text-center md:text-left flex flex-col p-2 md:px-4 gap-2'>
-              <h5 className='text-5xl md:text-4xl font-bold leading-tight text-gray-800'>Elevate Your Career with ElevateHub</h5>
-              <p className='mt-1 text-lg md:text-2xl text-gray-700'>
-                <span className='text-gray-800 font-bold'>ElevateHub </span>is the ultimate platform designed to connect you with experienced mentors
-                who can help you unlock your potential. Whether you're seeking career advice, skill development, or personal growth, ElevateHub is
-                here to guide you every step of the way
-              </p>
-              <div className='flex items-center justify-start'>
-                <button className='px-4 py-3 max-w-max text-white text-lg font-medium bg-gray-700 rounded-lg shadow-lg hover:bg-orange-800 duration-300'>
-                  Join ElevateHub
-                </button>
-                <a
-                  href='#'
-                  className='flex text-xl ml-4 items-center hover:text-orange-900'
-                >
-                  <div className='flex items-center hover:scale-x-105 transition duration-300'>
-                    Discover More
-                    <svg
-                      width='40'
-                      height='40'
-                      fill='#ab5403'
-                      viewBox='0 0 20 20'
-                      className='px-2'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M12.442 12.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z'
-                        clipRule='evenodd'
-                      />
-                      <path
-                        fillRule='evenodd'
-                        d='M8.5 14a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM15 8.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
-                  </div>
-                </a>
+            {/* features button */}
+            <div className='flex flex-col gap-2 justify-center items-center mt-10'>
+              <div className='bg-white px-2 py-2 w-[130px] rounded-full flex justify-center items-center gap-2 text-sm m-auto md:mx-0 mb-8'>
+                <div className='bg-teal-100 px-2 py-2 rounded-full'>
+                  <FaChalkboardTeacher className='text-teal-900' />
+                </div>
+                <div className='text-teal-800'>Features</div>
               </div>
+              <span className='text-5xl text-white font-semibold text-center'>What You Looking For?</span>
+              <span className='text-3xl text-white text-center'>Discover the perfect match for your learning journey.</span>
+            </div>
+
+            {/* Features Card */}
+            <div className='grid gap-8 row-gap-10 md:grid-cols-2 lg:grid-cols-3'>
+              {features.map((feature, index) => (
+                <FeaturesCard
+                  key={index}
+                  feature={feature}
+                />
+              ))}
             </div>
           </div>
         </section>
 
         {/* Features Section */}
-        <section className='bg-[#f8f9fa] px-4 py-8'>
-          <div className='max-w-screen-xl mx-auto px-6 lg:px-16 py-16'>
-            <div className='text-center mb-12'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-6'>Unlock Your Growth Journey with ElevateHub</h2>
-              <p className='text-lg text-gray-600'>
-                ElevateHub is designed to connect you with the right mentors, guiding you to success. Whether it's enhancing your skills or reaching
-                career goals, we’re here to help you thrive.
-              </p>
-            </div>
-
-            <div className='grid gap-8 row-gap-10 md:grid-cols-2 lg:grid-cols-3'>
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Expert Career Guidance</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  Gain career insights and advice from seasoned mentors. Receive support for resume building, job interviews, and navigating your
-                  professional growth.
-                </p>
-
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200 '
-                >
-                  Learn More
-                </a>
+        <section className='bg-gradient-to-br from-teal-800 via-teal-950 to-teal-700 py-8 px-6 md:px-20'>
+          <div className='max-w-screen-xl mx-auto py-16 flex flex-row gap-3'>
+            <div className='max-w-6xl  mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-0'>
+              {/* Image Section */}
+              <div className='w-full lg:w-1/2 flex justify-center'>
+                <div className='relative w-full flex items-center md:items-end'>
+                  <img
+                    className=' w-[500px] lg:w-full mx-auto rounded-lg'
+                    src={MentoringImage}
+                    alt='EduHub Mentor Image'
+                  />
+                </div>
               </div>
 
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Personalized Learning Paths</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  Our mentors design personalized learning plans that cater to your unique goals, helping you stay focused and motivated throughout
-                  your journey.
-                </p>
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200'
-                >
-                  Learn More
-                </a>
-              </div>
+              {/* Text Section */}
+              <div className='w-full lg:w-1/2 text-center lg:text-left px-6 lg:px-10'>
+                {/* learn with mentor button */}
+                <div className='mt-10'>
+                  <div className='bg-white px-2 py-2 w-[200px] rounded-full flex justify-center items-center gap-2 text-sm m-auto lg:mx-0 mb-8'>
+                    <div className='bg-teal-100 px-2 py-2 rounded-full'>
+                      <FaChalkboardTeacher className='text-teal-900' />
+                    </div>
+                    <div className='text-teal-800'>About Our Platfrom</div>
+                  </div>
+                </div>
 
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Affordable and Flexible</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  ElevateHub ensures that mentorship is accessible to all. Choose flexible and affordable mentoring sessions that fit your budget and
-                  schedule.
+                <h1 className='text-md font-extrabold text-teal-800 leading-tight'>
+                  <span className='text-2xl md:text-3xl lg:text-4xl text-teal-50'>Your Path to Success Starts Here</span>
+                </h1>
+                <p className='mt-6 text-md md:text-md lg:text-lg text-teal-50'>
+                  Whether you're looking to sharpen your skills, advance your career, or simply find guidance, our platform bridges the gap between
+                  learners and mentors. With personalized mentorship, flexible sessions, and global access, we help you succeed on your terms.
                 </p>
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200'
-                >
-                  Learn More
-                </a>
-              </div>
-
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Build Valuable Networks</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  Mentorship opens doors to valuable networking opportunities. Build lasting relationships with mentors and professionals in your
-                  field.
-                </p>
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200'
-                >
-                  Learn More
-                </a>
-              </div>
-
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Continuous Progress Tracking</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  Monitor your progress and achievements with the help of our built-in tools, which make goal-setting and tracking easy and
-                  motivating.
-                </p>
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200'
-                >
-                  Learn More
-                </a>
-              </div>
-
-              <div className='max-w-md text-center bg-white p-8 rounded-lg shadow-xl transition-transform transform hover:scale-105 flex flex-col justify-between duration-700'>
-                <h6 className='text-xl font-semibold text-gray-900 mb-3'>Global Mentorship Opportunities</h6>
-                <p className='text-sm text-gray-700 mb-4'>
-                  With ElevateHub, you can connect with mentors from across the globe. Gain diverse perspectives and expand your horizons with
-                  international opportunities.
-                </p>
-                <a
-                  href='/'
-                  className='text-teal-600 hover:text-teal-700 font-semibold transition-colors duration-200'
-                >
-                  Learn More
-                </a>
+                <div className='mt-8'>
+                  <NavLink to='/mentors'>
+                    <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300'>
+                      Match with a Mentor
+                    </button>
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className='px-6 py-10 bg-[#f3f4f6]'>
-          <div className='container mx-auto text-center max-w-screen-xl'>
+        {/* What you looking for section */}
+        <section className='px-6 py-10 my-8'>
+          <div className='container mx-auto text-center max-w-screen-xl p-16'>
+            {/* Heading section */}
             <div className='mb-12'>
-              <h2 className='text-4xl font-extrabold text-gray-900'>Start Your Mentorship Journey with ElevateHub</h2>
-              <p className='mt-4 text-lg text-gray-700'>
-                Join ElevateHub today and connect with mentors who can guide you towards your goals. Follow our easy steps to start achieving more
-                with personalized mentorship.
+              <h2 className='text-4xl font-extrabold text-teal-900'>What You Looking For?</h2>
+              <p className='mt-4 text-lg text-gray-700 w-3/4 mx-auto'>
+                Join EduHub today and connect with mentors who can guide you towards your goals. Follow our easy steps to start achieving more with
+                personalized mentorship.
               </p>
             </div>
+
+            {/* Body Section */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
-              <div className='relative'>
-                <img
-                  src={mentor} // Use your preferred image here
-                  alt='Mentorship Journey'
-                  className='rounded-lg shadow-lg h-full w-full object-cover'
-                />
+              {/* left section */}
+              <div className='border border-gray-200 bg-slate-100 p-4 rounded-xl'>
+                <div className='bg-white rounded-lg h-full flex flex-col gap-3 justify-end p-8'>
+                  {/* Top section */}
+                  <div className='border-b-slate-800 w-full'>
+                    <img
+                      src={FeatureImage}
+                      alt='Fetures image'
+                      className='mx-auto'
+                    />
+                  </div>
+
+                  {/* bottom section */}
+                  <div className='border-b-slate-800 w-full border-t-black'>
+                    <h3 className='text-2xl font-semibold text-teal-900'>Do You Want To Learn Here?</h3>
+                    <p className='text-lg w-3/4 mx-auto my-3 leading-5'>
+                      Explore all of our courses and pick your suitable ones to enroll and start learning with us!
+                    </p>
+                    <div className='flex justify-center'>
+                      <NavLink to='/mentors'>
+                        <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-5'>
+                          <span>Register Now</span> <FaArrowRight />
+                        </button>
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className='text-left'>
-                <ul className='space-y-8'>
-                  <li className='flex items-start'>
-                    <div className='flex flex-shrink-0 items-center justify-center  w-10 h-10 text-center text-lg font-bold text-white bg-teal-500 rounded-full'>
-                      1
+
+              {/* Right Section */}
+              <div className='border border-gray-200 bg-slate-100 p-4 rounded-xl'>
+                <div className='bg-white rounded-lg h-full flex flex-col gap-3 justify-end p-8'>
+                  {/* Top section */}
+                  <div className='border-b-slate-800 w-full'>
+                    <img
+                      src={FeatureImage}
+                      alt='Fetures image'
+                      className='mx-auto'
+                    />
+                  </div>
+
+                  {/* bottom section */}
+                  <div className='border-b-slate-800 w-full border-t-black'>
+                    <h3 className='text-2xl font-semibold text-teal-900'>Do You Want To Teach Here?</h3>
+                    <p className='text-lg w-3/4 mx-auto my-3 leading-5'>
+                      Explore all of our courses and pick your suitable ones to enroll and start learning with us!
+                    </p>
+                    <div className='flex justify-center'>
+                      <NavLink to='/mentors'>
+                        <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-5'>
+                          <span>Register Now</span> <FaArrowRight />
+                        </button>
+                      </NavLink>
                     </div>
-                    <div className='ml-6'>
-                      <h3 className='text-xl font-semibold text-gray-800'>Create Your Profile</h3>
-                      <p className='text-gray-600'>
-                        Start your ElevateHub journey by creating a personalized profile. Share your goals, interests, and areas for growth to help us
-                        match you with the right mentor.
-                      </p>
-                    </div>
-                  </li>
-                  <li className='flex items-start'>
-                    <div className='flex flex-shrink-0 items-center justify-center  w-10 h-10 text-center text-lg font-bold text-white bg-blue-500 rounded-full'>
-                      2
-                    </div>
-                    <div className='ml-6'>
-                      <h3 className='text-xl font-semibold text-gray-800'>Browse Mentor Profiles</h3>
-                      <p className='text-gray-600'>
-                        Explore a wide variety of mentors from diverse fields. Use filters to find experts with the skills and experience that match
-                        your goals.
-                      </p>
-                    </div>
-                  </li>
-                  <li className='flex items-start'>
-                    <div className='flex flex-shrink-0 items-center justify-center w-10 h-10 text-center text-lg font-bold text-white bg-green-500 rounded-full'>
-                      3
-                    </div>
-                    <div className='ml-6'>
-                      <h3 className='text-xl font-semibold text-gray-800'>Select Your Ideal Mentor</h3>
-                      <p className='text-gray-600'>
-                        Review mentor profiles, read testimonials, and choose someone who aligns with your personal or professional growth journey.
-                      </p>
-                    </div>
-                  </li>
-                  <li className='flex items-start'>
-                    <div className='flex flex-shrink-0 items-center justify-center  w-10 h-10 text-center text-lg font-bold text-white bg-orange-500 rounded-full'>
-                      4
-                    </div>
-                    <div className='ml-6'>
-                      <h3 className='text-xl font-semibold text-gray-800'>Schedule Your First Session</h3>
-                      <p className='text-gray-600'>
-                        Find a time that works for you and your mentor. Schedule your first session and kickstart your growth with expert guidance.
-                      </p>
-                    </div>
-                  </li>
-                  <li className='flex items-start'>
-                    <div className='flex flex-shrink-0 items-center justify-center  w-10 h-10 text-center text-lg font-bold text-white bg-yellow-500 rounded-full'>
-                      5
-                    </div>
-                    <div className='ml-6'>
-                      <h3 className='text-xl font-semibold text-gray-800'>Achieve Milestones Together</h3>
-                      <p className='text-gray-600'>
-                        Work closely with your mentor to develop key skills, stay motivated, and hit your personal or professional milestones.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Mentor Categories Section */}
-        <section className='px-8 py-20 bg-gray-100'>
+        <section className='px-8 py-20 bg-gradient-to-br from-teal-800 via-teal-950 to-teal-700'>
           <div className='container mx-auto'>
             <div className='flex flex-col items-center text-center md:flex-row md:text-left md:items-start'>
               {/* Left Section - Heading & Description */}
               <div className='mb-8 md:w-1/3 md:mr-12'>
-                <h2 className='text-4xl font-extrabold text-green-700'>Find the Right Mentor for You</h2>
-                <p className='mt-4 text-lg text-gray-700'>
+                <h2 className='text-4xl font-extrabold text-teal-100'>Find the Right Mentor for You</h2>
+                <p className='mt-4 text-lg text-teal-50'>
                   Unlock growth opportunities with expert mentors. Whether you're aiming to boost your career, enhance your skills, or explore new
                   fields, Elevate Hub has the perfect mentor for you.
                 </p>
-                <a className='inline-flex items-center px-6 py-3 mt-6 text-white transition duration-300 bg-green-500 rounded-md shadow-md hover:bg-green-600 hover:shadow-lg'>
+                <a className='inline-flex items-center px-6 py-3 mt-6 text-white transition duration-300 bg-teal-500 rounded-md shadow-md hover:bg-teal-600 hover:shadow-lg cursor-pointer'>
                   Get Started
                   <svg
                     className='w-4 h-4 ml-2'
@@ -324,7 +293,7 @@ function Home() {
                     href='/'
                     onClick={(e) => e.preventDefault()} // Prevents page reload
                     className='block p-4 text-center transition duration-300 border rounded-lg shadow-sm bg-white text-gray-800 
-                       border-green-400 hover:bg-green-500 hover:text-white hover:shadow-lg cursor-not-allowed'
+                       border-teal-400 hover:bg-teal-500 hover:text-white hover:shadow-lg cursor-not-allowed'
                   >
                     {category}
                   </a>
@@ -336,7 +305,7 @@ function Home() {
             <div className='relative mt-10'>
               <img
                 className='object-cover w-full h-56 sm:h-96 rounded-lg shadow-md'
-                src='https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+                src={mentee1}
                 alt='Mentorship'
               />
               <div className='absolute inset-0 bg-green-900 bg-opacity-30 rounded-lg' />
@@ -344,6 +313,7 @@ function Home() {
           </div>
         </section>
 
+        {/* TopMentor */}
         <section
           style={{
             background: "linear-gradient(to bottom right, #f3f4f6, #e5e7eb)",
@@ -357,14 +327,14 @@ function Home() {
         </section>
 
         {/* Pricing Section */}
-        <section className='px-10 py-24 text-center bg-green-50'>
-          <h2 className='mb-10 text-5xl font-extrabold text-green-700'>Flexible & Affordable Plans</h2>
+        <section className='px-10 py-24 text-center bg-teal-50'>
+          <h2 className='mb-10 text-5xl font-extrabold text-teal-700'>Flexible & Affordable Plans</h2>
           <p className='max-w-3xl mx-auto mb-8 text-lg text-gray-700'>
             Choose a plan that fits your growth journey. Elevate Hub offers free access for learners, with premium options for advanced mentorship and
             exclusive resources.
           </p>
           <button
-            className='px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-green-500 rounded-full shadow-md hover:bg-green-600 hover:shadow-lg '
+            className='px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-teal-500 rounded-full shadow-md hover:bg-teal-600 hover:shadow-lg cursor-pointer'
             disabled
           >
             View Pricing Plans
