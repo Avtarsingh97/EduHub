@@ -14,12 +14,12 @@ asyncHandler(serviceController.createService)
 );
 
 
-router.post("/:serviceId",
+router.put("/:serviceId",
     validate(createServiceSchema),
     authMiddleware.protect,
-    authMiddleware.restrictTo("mentor",
-        asyncHandler(serviceController.updateService)
-    )
+    authMiddleware.restrictTo("mentor"),
+    asyncHandler(serviceController.updateService)
+    
 );
 
 

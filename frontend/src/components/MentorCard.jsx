@@ -5,6 +5,7 @@ const MentorCard = ({mentor}) => {
     <>
     <div>
       <div>
+        <h1>{mentor?.name}</h1>
         <h4>
           {mentor?.profile?.title}
         </h4>

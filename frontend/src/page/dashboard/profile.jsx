@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button, Avatar, Input, Modal, Form, Spin, message } from "antd";
+import { Avatar, Input, Modal, Form, Spin, message } from "antd";
 import { AiOutlineUser, AiOutlineMail, AiFillLinkedin, AiFillGithub, AiFillTwitterCircle, AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import Dashboard from "./dashboard";
 import useUserStore from "../../store/user";
@@ -30,11 +30,10 @@ const Profile = () => {
     }
   };
 
-
-  const fetchAndSetUser = async()=>{
-    const {data} = await userAPI.getUser();
-    setUser(data.user)
-  }
+  const fetchAndSetUser = async () => {
+    const { data } = await userAPI.getUser();
+    setUser(data.user);
+  };
 
   const handleEditProfile = () => {
     setIsEditing(true);
@@ -81,8 +80,8 @@ const Profile = () => {
 
   return (
     <Dashboard>
-      <div className='flex flex-col items-center w-full min-h-screen p-10 bg-gradient-to-r from-green-50 to-white'>
-        <h2 className='mb-10 text-5xl font-bold text-center text-green-600'>My Profile</h2>
+      <div className='flex flex-col items-center w-full min-h-screen p-10 bg-gradient-to-r from-teal-50 to-white'>
+        <h2 className='mb-10 text-5xl font-bold text-center text-teal-600'>My Profile</h2>
         <div className='flex flex-col w-full max-w-5xl p-8 space-y-10 bg-white shadow-xl rounded-3xl'>
           <Spin spinning={loading}>
             <div className='flex justify-center'>
@@ -94,19 +93,19 @@ const Profile = () => {
                 }}
                 size={180}
                 src={mentorData?.photoUrl || generateAvatarUrl(mentorData?.name || "User")}
-                className='border-4 border-green-300 shadow-lg cursor-pointer transform hover:scale-110 transition-all'
+                className='border-4 border-teal-300 shadow-lg cursor-pointer transform hover:scale-110 transition-all'
               />
             </div>
           </Spin>
 
           <div className='text-center'>
-            <h3 className='text-4xl font-semibold text-green-700 uppercase'>{mentorData?.name}</h3>
+            <h3 className='text-4xl font-semibold text-teal-700 uppercase'>{mentorData?.name}</h3>
             <p className='flex items-center justify-center mt-4 text-lg text-gray-700'>
-              <AiOutlineMail className='mr-2 text-green-500' />
+              <AiOutlineMail className='mr-2 text-teal-500' />
               {mentorData?.email}
             </p>
             <p className='flex items-center justify-center mt-2 text-lg text-gray-700'>
-              <AiOutlineUser className='mr-2 text-green-500' />
+              <AiOutlineUser className='mr-2 text-teal-500' />
               {mentorData?.profile?.title}
             </p>
             <p className='mt-2 text-lg text-gray-700'>Tags: {mentorData?.profile?.tags?.join(", ")}</p>
@@ -123,13 +122,13 @@ const Profile = () => {
             disabled={loading}
           />
 
-          <h3 className='text-2xl font-semibold text-center text-green-700'>Connect with Me</h3>
+          <h3 className='text-2xl font-semibold text-center text-teal-700'>Connect with Me</h3>
           <div className='flex justify-center mt-4 space-x-6'>
             <a
               href={mentorData?.social?.linkedin || "#"}
               target='_blank'
               rel='noopener noreferrer'
-              className='text-green-600 hover:text-green-800 transition-transform transform hover:scale-110'
+              className='text-blue-600 hover:text-blue-800 transition-transform transform hover:scale-110'
             >
               <AiFillLinkedin className='text-4xl' />
             </a>
@@ -167,13 +166,12 @@ const Profile = () => {
             </a>
           </div>
 
-          <Button
-            type='primary'
-            className='w-full mt-10 text-lg bg-green-500 rounded-lg hover:bg-green-600 transition-all'
+          <button
+            className='w-full mt-10 text-lg bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-all px-4 py-2'
             onClick={handleEditProfile}
           >
             Edit Profile
-          </Button>
+          </button>
 
           <Modal
             title='Edit Profile'
@@ -282,13 +280,12 @@ const Profile = () => {
 
               {/* Submit Button */}
               <Form.Item>
-                <Button
-                  type='primary'
-                  htmlType='submit'
-                  className='w-full bg-green-500 rounded-lg hover:bg-green-600'
+                <button
+                  type='submit'
+                  className='w-full bg-teal-500 rounded-lg hover:bg-teal-600 py-2 text-xl text-white '
                 >
                   Save Changes
-                </Button>
+                </button>
               </Form.Item>
             </Form>
           </Modal>

@@ -4,7 +4,7 @@ const serviceService = require("../services/service.service");
 const httpStatus = require("../util/httpStatus");
 
 const createService = async (req, res, next) => {
-  console.log("service entered")
+  
   try {
     const mentorId = req.user._id;
     const { serviceName, description, duration, price } = req.body;
@@ -16,9 +16,7 @@ const createService = async (req, res, next) => {
       duration,
       price,
     });
-    console.log(service);
-    
-
+  
     res.status(httpStatus.created).json({
       success: true,
       message: "Service created successfully",
@@ -34,14 +32,14 @@ const updateService = async (req, res, next) => {
     const serviceId = req.params.serviceId;
     const mentorId = req.user._id;
     const { name, description, duration, price, active } = req.body;
-
+    
     const updatedService = await serviceService.updateService(serviceId, mentorId, { name, description, duration, price, active });
 
     if (!updatedService) {
       throw new ApiError(httpStatus.notFound, "Service not found");
     }
 
-    res.send(httpStatus.ok).json({
+    res.status(httpStatus.ok).json({
       success: true,
       message: "Service updated successfully",
       service: updateService,
@@ -54,8 +52,7 @@ const updateService = async (req, res, next) => {
 const getServiceByMentor = async (req, res, next) => {
   try {
     const mentorId = req.user._id;
-    console.log(mentorId);
-    
+        
     const service = await serviceService.getServiceByMentor(mentorId);
 
     if (!service || service.length === 0) {

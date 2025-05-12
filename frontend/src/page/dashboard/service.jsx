@@ -7,12 +7,16 @@ import toast from "react-hot-toast";
 import { FiPlus } from "react-icons/fi";
 import useUserStore from "../../store/user";
 
+
 const Services = () => {
   const [services, setServices] = useState([]); // State to hold services
   const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
   const [editingService, setEditingService] = useState(null); // State to track which service is being edited
   const [loading, setLoading] = useState(true); // State to track loading status
   const { setUser, user: mentorData } = useUserStore(); // To fecth mentor id from userState
+
+  const [form] = Form.useForm();
+
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -40,10 +44,21 @@ const Services = () => {
     fetchServices();
   }, []); 
 
+  useEffect(() => {
+    if (isModalVisible) {
+      if (editingService) {
+        form.setFieldsValue(editingService);
+      } else {
+        form.resetFields();
+      }
+    }
+  }, [editingService, form, isModalVisible]);
+  
+
   // Handle creating a new service
   const handleCreateService = async (values) => {
     setLoading(true);
-    
+    setEditingService(null);
     try {
       const response = await service.createService(values); 
       setServices((prevServices) => [...prevServices, response?.data?.service]); 
@@ -69,7 +84,7 @@ const Services = () => {
         )
       );
       setIsModalVisible(false); 
-      setEditingService(null); 
+      
       toast.success("Service updated successfully!");
     } catch (error) {
       console.error("Error editing service:", error);
@@ -82,7 +97,6 @@ const Services = () => {
   // Handle opening the modal for editing a service
   const handleEdit = (service) => {
     setEditingService(service);
-    console.log(editingService)
     setIsModalVisible(true);
   };
 
@@ -104,14 +118,17 @@ const Services = () => {
           title={editingService ? "Edit Service" : "Create New Service"}
           open={isModalVisible}
           onCancel={() => {
+            form.resetFields();
             setEditingService(null); 
             setIsModalVisible(false); 
+            
           }}
           footer={null}
         >
           <Form
+            form={form}
             onFinish={editingService ? handleEditService : handleCreateService}
-            initialValues={editingService}
+            
           >
             <Form.Item
               label='Service Name'

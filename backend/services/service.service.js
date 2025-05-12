@@ -4,7 +4,7 @@ const createService = async(serviceData) =>{
     return await ServiceModel.create(serviceData);
 };
 
-const updateService = async(serviceId, getMentorById, updateData) =>{
+const updateService = async(serviceId, mentorId, updateData) =>{
     return await ServiceModel.findOneAndUpdate(
     {
         _id:serviceId,

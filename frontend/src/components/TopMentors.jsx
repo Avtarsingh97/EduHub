@@ -49,15 +49,15 @@ const TopMentors = () => {
         <h1>Top Mentors</h1>
         <div>
       
-          {topMentors.map((mentor) => (
-            <li>{mentor.name}</li>
-            // return (
-            //   <MentorCard
-            //     mentor={mentor}
-            //     key={mentor?._id}
-            //   />
-            // );
-          ))}
+          {topMentors.map((mentor) => {
+            
+            return (
+              <MentorCard
+                mentor={mentor}
+                key={mentor?._id}
+              />
+            );
+})}
         </div>
       </div>
     </>

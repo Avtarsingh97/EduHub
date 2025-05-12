@@ -58,7 +58,7 @@ const restrictTo = (...roles)=>{
                 )
             )
         }
-       console.log(req.user.role);
+       
        next();
     }
 }

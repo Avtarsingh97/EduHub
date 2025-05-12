@@ -24,8 +24,8 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `flex items-center px-4 py-2 mb-4 rounded-lg transition-all duration-300 transform ${
                 isActive
-                  ? "bg-orange-200 text-gray-800 shadow-md"
-                  : "text-gray-600 hover:bg-orange-100 hover:text-gray-800"
+                  ? "bg-teal-700 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-100 hover:text-gray-800"
               }`
             }
           >
@@ -38,10 +38,10 @@ const Sidebar = () => {
               to="/dashboard/services"
               className={({ isActive }) =>
                 `flex items-center px-4 py-2 mb-4 rounded-lg transition-all duration-300 transform ${
-                  isActive
-                    ? "bg-orange-200 text-gray-800 shadow-md"
-                    : "text-gray-600 hover:bg-orange-100 hover:text-gray-800"
-                }`
+                isActive
+                  ? "bg-teal-700 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-100 hover:text-gray-800"
+              }`
               }
             >
               <span className="mx-4 font-medium">Services</span>
@@ -54,10 +54,10 @@ const Sidebar = () => {
               to="/dashboard/schedule"
               className={({ isActive }) =>
                 `flex items-center px-4 py-2 mb-4 rounded-lg transition-all duration-300 transform ${
-                  isActive
-                    ? "bg-orange-200 text-gray-800 shadow-md"
-                    : "text-gray-600 hover:bg-orange-100 hover:text-gray-800"
-                }`
+                isActive
+                  ? "bg-teal-700 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-100 hover:text-gray-800"
+              }`
               }
             >
               <span className="mx-4 font-medium">Schedule</span>
@@ -71,8 +71,8 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `flex items-center px-4 py-2 mb-4 rounded-lg transition-all duration-300 transform ${
                 isActive
-                  ? "bg-orange-200 text-gray-800 shadow-md"
-                  : "text-gray-600 hover:bg-orange-100 hover:text-gray-800"
+                  ? "bg-teal-700 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-100 hover:text-gray-800"
               }`
             }
           >
@@ -86,8 +86,8 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `flex items-center px-4 py-2 mb-4 rounded-lg transition-all duration-300 transform ${
                 isActive
-                  ? "bg-orange-200 text-gray-800 shadow-md"
-                  : "text-gray-600 hover:bg-orange-100 hover:text-gray-800"
+                  ? "bg-teal-700 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-100 hover:text-gray-800"
               }`
             }
           >
