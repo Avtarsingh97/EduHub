@@ -9,12 +9,12 @@ const ServiceCard = ({ service, onEdit }) => {
         <div className="flex items-center gap-3">
           <FaPhone className="text-teal-600" size={24} /> {/* Example icon */}
           <h3 className="text-xl font-semibold text-gray-800">
-            {service?.name}
+            {service?.serviceName}
           </h3>
         </div>
         {/* Enable/Disable Button */}
         <button
-          // onClick={}
+          // onClick={onActive}
           className={`${
             service?.active ? "bg-green-500" : "bg-red-500"
           } text-white px-3 py-1 rounded-md`}

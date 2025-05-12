@@ -86,22 +86,22 @@ function Home() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* Features Section */}
         <section className='relative px-6 md:px-20 py-16 md:py-24 bg-teal-700 '>
           <div className='max-w-6xl mx-auto flex flex-col gap-12'>
-            <div className='grid gap-8 row-gap-10 grid-cols-2'>
-              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900  rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+            <div className='grid gap-5 grid-cols-2 xl:grid-cols-4'>
+              <div className='bg-white flex-1 flex justify-center items-center gap-1 font-bold text-teal-900  rounded-xl text-lg sm:text-3xl md:text-4xl py-5 md:py-8'>
                 <FaLink className='text-teal-600' /> Connect
               </div>
-              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+              <div className='bg-white flex-1 flex justify-center items-center gap-1 font-bold text-teal-900 rounded-xl  text-lg sm:text-3xl md:text-4xl py-5 md:py-8'>
                 <GiUpgrade className='text-teal-600' />
                 Empower
               </div>
-              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+              <div className='bg-white flex-1 flex justify-center items-center gap-1 font-bold text-teal-900 rounded-xl  text-lg sm:text-3xl md:text-4xl py-5 md:py-8'>
                 <FaBookReader className='text-teal-600' />
                 Learn
               </div>
-              <div className='bg-white flex-1 flex justify-center items-center gap-3 font-bold text-teal-900 rounded-xl text-xl md:text-4xl py-5 md:py-8'>
+              <div className='bg-white flex-1 flex justify-center items-center gap-1 font-bold text-teal-900 rounded-xl  text-lg sm:text-3xl md:text-4xl py-5 md:py-8'>
                 <FaLightbulb className='text-teal-600' />
                 Inspire
               </div>
@@ -131,7 +131,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* About Us Section */}
         <section className='bg-gradient-to-br from-teal-800 via-teal-950 to-teal-700 py-8 px-6 md:px-20'>
           <div className='max-w-screen-xl mx-auto py-16 flex flex-row gap-3'>
             <div className='max-w-6xl  mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-0'>
@@ -168,7 +168,7 @@ function Home() {
                 <div className='mt-8'>
                   <NavLink to='/mentors'>
                     <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300'>
-                      Match with a Mentor
+                      Learn More About Us
                     </button>
                   </NavLink>
                 </div>
@@ -177,13 +177,13 @@ function Home() {
           </div>
         </section>
 
-        {/* What you looking for section */}
-        <section className='px-6 py-10 my-8'>
-          <div className='container mx-auto text-center max-w-screen-xl p-16'>
+        {/* Register Now Section */}
+        <section className='md:px-6 py-10 md:my-8'>
+          <div className='container mx-auto text-center max-w-screen-xl p-12 md:p-16'>
             {/* Heading section */}
             <div className='mb-12'>
               <h2 className='text-4xl font-extrabold text-teal-900'>What You Looking For?</h2>
-              <p className='mt-4 text-lg text-gray-700 w-3/4 mx-auto'>
+              <p className='mt-4 text-lg text-gray-700 md:w-3/4 mx-auto'>
                 Join EduHub today and connect with mentors who can guide you towards your goals. Follow our easy steps to start achieving more with
                 personalized mentorship.
               </p>
@@ -205,13 +205,13 @@ function Home() {
 
                   {/* bottom section */}
                   <div className='border-b-slate-800 w-full border-t-black'>
-                    <h3 className='text-2xl font-semibold text-teal-900'>Do You Want To Learn Here?</h3>
-                    <p className='text-lg w-3/4 mx-auto my-3 leading-5'>
+                    <h3 className='text-2xl font-semibold text-teal-900 leading-6'>Do You Want To Learn Here?</h3>
+                    <p className='text-md md:text-lg md:w-3/4 mx-auto my-3 leading-5'>
                       Explore all of our courses and pick your suitable ones to enroll and start learning with us!
                     </p>
                     <div className='flex justify-center'>
-                      <NavLink to='/mentors'>
-                        <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-5'>
+                      <NavLink to='/signup/student'>
+                        <button className='px-3 md:px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-2 md:gap-5'>
                           <span>Register Now</span> <FaArrowRight />
                         </button>
                       </NavLink>
@@ -235,12 +235,12 @@ function Home() {
                   {/* bottom section */}
                   <div className='border-b-slate-800 w-full border-t-black'>
                     <h3 className='text-2xl font-semibold text-teal-900'>Do You Want To Teach Here?</h3>
-                    <p className='text-lg w-3/4 mx-auto my-3 leading-5'>
+                    <p className='text-md md:text-lg md:w-3/4 mx-auto my-3 leading-5'>
                       Explore all of our courses and pick your suitable ones to enroll and start learning with us!
                     </p>
                     <div className='flex justify-center'>
-                      <NavLink to='/mentors'>
-                        <button className='px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-5'>
+                      <NavLink to='/signup/mentor'>
+                        <button className='px-3 md:px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition duration-300 mt-5 flex justify-center items-center gap-2 md:gap-5'>
                           <span>Register Now</span> <FaArrowRight />
                         </button>
                       </NavLink>
@@ -321,45 +321,42 @@ function Home() {
             animation: "gradientAnimation 6s ease infinite",
           }}
         >
-          <div className='container mx-auto'>
+          <div className='container mx-auto flex flex-col justify-center items-center'>
+            <div className='mt-10'>
+              {/* Top Mentors Button */}
+              <div className='flex justify-center'>
+                <div className='bg-white px-2 py-2 w-[150px] rounded-full flex justify-center items-center gap-2 text-sm mx-auto lg:mx-0 mb-2'>
+                  <div className='bg-teal-100 px-2 py-2 rounded-full'>
+                    <FaChalkboardTeacher className='text-teal-900' />
+                  </div>
+                  <div className='text-teal-800'>Top Mentors</div>
+                </div>
+              </div>
+              <p className='text-4xl font-semibold text-teal-900 text-center'>Meet Our Professional</p>
+            </div>
             <TopMentors />
           </div>
-        </section>
-
-        {/* Pricing Section */}
-        <section className='px-10 py-24 text-center bg-teal-50'>
-          <h2 className='mb-10 text-5xl font-extrabold text-teal-700'>Flexible & Affordable Plans</h2>
-          <p className='max-w-3xl mx-auto mb-8 text-lg text-gray-700'>
-            Choose a plan that fits your growth journey. Elevate Hub offers free access for learners, with premium options for advanced mentorship and
-            exclusive resources.
-          </p>
-          <button
-            className='px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-teal-500 rounded-full shadow-md hover:bg-teal-600 hover:shadow-lg cursor-pointer'
-            disabled
-          >
-            View Pricing Plans
-          </button>
         </section>
 
         {/* FAQ's */}
 
         {/* Call to Action */}
-        <section className='px-8 py-20 text-center bg-green-100'>
+        <section className='px-8 py-20 text-center bg-teal-100'>
           <div className='max-w-3xl mx-auto'>
-            <h2 className='mb-6 text-5xl font-extrabold text-green-600'>Unlock Your Potential with the Right Mentor!</h2>
+            <h2 className='mb-6 text-5xl font-extrabold text-teal-600'>Unlock Your Potential with the Right Mentor!</h2>
             <p className='mb-10 text-lg text-gray-700 leading-relaxed'>
               Connect with experienced mentors who can guide you towards your goals. Whether you're starting a new career, learning new skills, or
               growing your network—your journey begins here.
             </p>
             <div className='flex justify-center gap-6'>
               <button
-                className='px-8 py-4 text-lg font-semibold text-white transition rounded-lg shadow-md bg-green-500 hover:bg-green-600 hover:scale-105 hover:shadow-xl'
+                className='px-8 py-4 text-lg font-semibold text-white transition rounded-lg shadow-md bg-teal-500 hover:bg-teal-600 hover:scale-105 hover:shadow-xl'
                 disabled
               >
                 Get Started
               </button>
               <button
-                className='px-8 py-4 text-lg font-semibold text-green-600 transition bg-white border-2 border-green-500 rounded-lg hover:bg-green-500 hover:text-white hover:shadow-md'
+                className='px-8 py-4 text-lg font-semibold text-teal-600 transition bg-white border-2 border-teal-500 rounded-lg hover:bg-teal-500 hover:text-white hover:shadow-md'
                 disabled
               >
                 Explore More

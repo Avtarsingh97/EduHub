@@ -90,7 +90,7 @@ function Nav() {
 
             {/* Desktop Navigation Menu when user is not logged in */}
             {!user ? (
-              <ul className='items-center hidden space-x-8 lg:flex'>
+              <ul className='items-center hidden space-x-2 lg:flex'>
                 {/* <li>
                   <button
                     className='h-12 px-6 font-medium tracking-wide text-gray border-4 border-teal-500 bg-teal-500 rounded-md hover:bg-teal-600 transition-all duration-300 hover:text-white'
@@ -98,21 +98,23 @@ function Nav() {
                   >
                     Become a Mentor with Us
                   </button>
-                </li>
+                </li> */}
+
                 <li>
                   <button
-                    className='font-medium tracking-wide text-teal-500 hover:text-teal-700 transition-all duration-300'
+                    className='font-medium tracking-wide text-teal-500 hover:text-teal-700 transition-all duration-300 px-6 h-12 rounded hover:border hover:border-teal-700'
                     onClick={signInBtnClick}
                   >
                     Sign In
                   </button>
-                </li> */}
+                </li>
+
                 <li>
                   <button
                     className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white bg-teal-500 rounded-md hover:bg-teal-600 transition-all duration-300'
                     onClick={signupStudentBtnClick}
                   >
-                    Register
+                    Enroll Now
                   </button>
                 </li>
               </ul>
@@ -124,7 +126,7 @@ function Nav() {
                 size="large"
                 
               >
-                <button className='bg-teal-500 px-5 py-3 rounded-full hover:bg-teal-600 '>{user.name.charAt(0).toUpperCase()}</button>
+                <button className='bg-teal-500 px-4 py-3 rounded-full hover:bg-teal-600 text-2xl text-white font-semibold'>{user.name.charAt(0).toUpperCase()}</button>
               </Dropdown>
             )}
 
@@ -147,6 +149,14 @@ function Nav() {
                   >
                     Sign In
                   </button> */}
+                  
+                  <button
+                    className='font-medium tracking-wide text-teal-500 hover:text-teal-700 transition-all duration-300 px-6 h-12 rounded hover:border hover:border-teal-700'
+                    onClick={signInBtnClick}
+                  >
+                    Sign In
+                  </button>
+                
 
                   {/* SignUp */}
                   <button

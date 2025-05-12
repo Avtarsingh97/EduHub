@@ -42,7 +42,7 @@ const updateService = async (req, res, next) => {
     res.status(httpStatus.ok).json({
       success: true,
       message: "Service updated successfully",
-      service: updateService,
+      service: updatedService,
     });
   } catch (error) {
     next(error);
@@ -75,7 +75,7 @@ const getServiceById = async (req, res, next) => {
   try {
     const serviceId = req.user._id;
     const service = await serviceService.getServicebyId(serviceId);
-
+        
     if (!serviceId) {
       return res.status(httpStatus.notFound).json({
         success: false,

@@ -1,3 +1,5 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import React,{useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Toaster from "react-hot-toast";

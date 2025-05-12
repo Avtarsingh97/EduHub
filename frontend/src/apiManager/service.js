@@ -5,6 +5,7 @@ const createService = async (data) => {
 }
 
 const editService = async (id, data) => {
+
     return await AxiosInstances.put(`/service/${id}`,data);
 
 }
