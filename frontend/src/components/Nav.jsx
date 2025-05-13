@@ -60,7 +60,7 @@ function Nav() {
   return (
     <>
       <div className={`h-[100px] sticky top-0 z-50 transition-all duration-500 ${isScrolled ? "bg-teal-50" : "bg-white"}`}>
-        <div className='px-6 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-20'>
+        <div className='px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-20'>
           <div className='realtive flex items-center justify-between'>
             <div className='flex items-center'>
               <NavLink
@@ -68,7 +68,7 @@ function Nav() {
                 className='inline-flex items-center mr-8'
               >
                 <img
-                  className='h-[100px] w-[100px]'
+                  className='h-[80px] sm:h-[100px] w-[80px] sm:w-[100px]'
                   src={eduHubLogo}
                   alt='Mentorship Hub'
                 />
@@ -91,18 +91,10 @@ function Nav() {
             {/* Desktop Navigation Menu when user is not logged in */}
             {!user ? (
               <ul className='items-center hidden space-x-2 lg:flex'>
-                {/* <li>
-                  <button
-                    className='h-12 px-6 font-medium tracking-wide text-gray border-4 border-teal-500 bg-teal-500 rounded-md hover:bg-teal-600 transition-all duration-300 hover:text-white'
-                    onClick={signupMentorBtnClick}
-                  >
-                    Become a Mentor with Us
-                  </button>
-                </li> */}
 
                 <li>
                   <button
-                    className='font-medium tracking-wide text-teal-500 hover:text-teal-700 transition-all duration-300 px-6 h-12 rounded hover:border hover:border-teal-700'
+                    className='font-medium tracking-wide text-teal-500 hover:text-teal-700 transition-all duration-500 px-6 h-12 rounded hover:border hover:border-teal-700'
                     onClick={signInBtnClick}
                   >
                     Sign In

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "./dashboard";
-import ServiceCard from "../../components/ServiceCard";
+import ServiceCard from "../../components/serviceCard";
 import service from "../../apiManager/service";
 import { Button, Input, Modal, Form, Spin, Select } from "antd";
 import toast from "react-hot-toast";
