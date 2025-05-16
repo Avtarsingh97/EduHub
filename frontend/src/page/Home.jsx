@@ -255,7 +255,7 @@ function Home() {
                 </p>
 
                 <div className='flex'>
-                  <NavLink to=''>
+                  <NavLink to='/mentors'>
                     <button className='px-3 md:px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded shadow-lg hover:bg-teal-700 hover:scale-105 transition-all duration-500 mt-5 flex justify-center items-center gap-2 md:gap-5'>
                       <span>Get Started</span> <FaArrowRight />
                     </button>
@@ -310,7 +310,7 @@ function Home() {
 
               {/* Top Mentors Button */}
               <div className='flex justify-center'>
-                <div className='bg-white px-2 py-2 w-[150px] rounded-full flex justify-center items-center gap-2 text-sm mx-auto lg:mx-0 mb-2'>
+                <div className='bg-teal-300 px-2 py-2 w-[150px] rounded-full flex justify-center items-center gap-2 text-sm mx-auto lg:mx-0 mb-2'>
                   <div className='bg-teal-100 px-2 py-2 rounded-full'>
                     <FaChalkboardTeacher className='text-teal-900' />
                   </div>
@@ -327,7 +327,7 @@ function Home() {
 
           {/* All Mentor Button */}
           <div className='flex justify-center pb-12'>
-            <NavLink to=''>
+            <NavLink to='/mentors'>
               <button className='px-5 md:px-8 py-3 text-white text-lg font-medium bg-teal-600 rounded-full shadow-lg hover:bg-teal-700 hover:scale-105 transition-all duration-500 mt-5 flex justify-center items-center gap-2 md:gap-5 '>
                 <span>All Mentors</span> <FaArrowRight />
               </button>

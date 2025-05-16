@@ -108,10 +108,11 @@ const Profile = () => {
               <AiOutlineUser className='mr-2 text-teal-500' />
               {mentorData?.profile?.title}
             </p>
-            <p className='mt-2 text-lg text-gray-700'>Tags: {mentorData?.profile?.tags?.join(", ")}</p>
-            <p className='mt-4 text-lg text-gray-700'>Bio: {mentorData?.profile?.bio}</p>
-            {mentorData?.profile?.college && <p className='mt-2 text-lg text-gray-700'>College: {mentorData?.profile?.college}</p>}
-          </div>
+            </div>
+            <div className='mt-2 text-lg text-gray-700'><span className="text-xl text-teal-400">Tags:</span><div className="border border-teal-200 p-3 rounded-xl font-semibold text-2xl text-center"> {mentorData?.profile?.tags?.join(" | ")}</div></div>
+            <div className='mt-4 text-lg text-gray-700'><span className="text-xl text-teal-400">Bio:</span><div className="border border-teal-200 p-5 rounded-xl text-xl text-justify"> {mentorData?.profile?.bio}</div></div>
+            {mentorData?.profile?.college && <div className='mt-2 text-lg text-gray-700'><span className="text-xl text-teal-400">College:</span><div className="border border-teal-200 p-3 rounded-xl text-xl text-center"> {mentorData?.profile?.college}</div></div>}
+          
 
           <input
             ref={inputRef}
@@ -231,6 +232,7 @@ const Profile = () => {
               <Form.Item
                 label='Bio'
                 name='bio'
+                rules={[{ required: true, message: "Please enter your bio" }]}
               >
                 <Input.TextArea
                   placeholder='Write a short bio about yourself'
@@ -242,6 +244,7 @@ const Profile = () => {
               <Form.Item
                 label='College'
                 name='college'
+                rules={[{ required: true, message: "Please enter your college name" }]}
               >
                 <Input placeholder='Enter your college name' />
               </Form.Item>

@@ -1,4 +1,4 @@
-import AxiosInstances from ".";
+import AxiosInstances from "./index";
 
 const uploadImage = async (formData) => {
   return await AxiosInstances.post("/user/upload-photo", formData);

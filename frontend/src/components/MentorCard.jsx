@@ -1,7 +1,7 @@
 import React from "react";
 import noImage from "../assets/no-image.webp";
 
-const MentorCard = ({ mentor }) => {
+const MentorCard = ({ mentor, handleClick }) => {
   const socialLinks = [
     {
       icon: "fab fa-facebook-f",
@@ -23,7 +23,10 @@ const MentorCard = ({ mentor }) => {
 
   return (
     <>
-      <div className='max-h-max shadow-xl border border-teal-300 rounded-lg cursor-pointer hover:scale-105 transition-all ease-in-out duration-500 '>
+      <div 
+      className='max-h-max shadow-xl border border-teal-300 rounded-lg cursor-pointer hover:scale-105 transition-all ease-in-out duration-500'
+      onClick={handleClick}
+      >
         <div className='bg-white rounded-lg h-[400px] md:h-[500px] flex flex-col '>
           {/* Card left section */}
           <div className='w-full h-[250px] overflow-hidden rounded'>

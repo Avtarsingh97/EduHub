@@ -28,7 +28,6 @@ router.get("/:mentorId",
     asyncHandler(serviceController.getServiceByMentor)
 );
 
-
 router.get("/:serviceId",
     authMiddleware.protect,
     authMiddleware.restrictTo("mentor"),

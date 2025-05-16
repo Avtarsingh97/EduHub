@@ -51,6 +51,7 @@ const updateService = async (req, res, next) => {
 
 const getServiceByMentor = async (req, res, next) => {
   try {
+    console.log(req);
     const mentorId = req.user._id;
         
     const service = await serviceService.getServiceByMentor(mentorId);

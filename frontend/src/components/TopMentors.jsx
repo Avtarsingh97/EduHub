@@ -5,31 +5,17 @@ import MentorCard from "./MentorCard";
 import { Button, Spin } from "antd";
 
 const TopMentors = () => {
-  const [topMentors, setTopMentors] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { setMentorsData } = useMentorsStore();
+  const { mentorsData,setMentorsData } = useMentorsStore();
 
-  const selectTopMentor = (mentors) => {
-    const topSelectedMentors = [];
-    const totalMentors = mentors.length;
-
-    while (topSelectedMentors.length < 4 && topSelectedMentors.length < totalMentors) {
-      const randomIndex = Math.floor(Math.random() * totalMentors);
-      const randomMentor = mentors[randomIndex];
-      if (!topSelectedMentors.includes(randomMentor)) {
-        topSelectedMentors.push(randomMentor);
-      }
-    }
-    return topSelectedMentors;
-  };
 
   const fetchAllMentors = async () => {
     try {
       setLoading(true);
-      const response = await mentorApi.getAllMentors();
-      const allMentors = response?.data?.mentors || [];
+      const response = await mentorApi.getTopMentors();
+      const allMentors = response?.data?.topSelectedMentors || [];
       setMentorsData(allMentors);
-      setTopMentors(selectTopMentor(allMentors));
+      
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -45,7 +31,7 @@ const TopMentors = () => {
       <div className='w-full'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 p-2 md:p-10 '>
           {!loading ? (
-            topMentors.map((mentor) => {
+            mentorsData.map((mentor) => {
               return (
                 <MentorCard
                   mentor={mentor}
@@ -54,7 +40,9 @@ const TopMentors = () => {
               );
             })
           ) : (
-            <div>loading....</div>
+            <div>
+              <Spin/>
+            </div>
           )}
         </div>
       </div>

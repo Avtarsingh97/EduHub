@@ -1,5 +1,5 @@
 
-import AxiosInstances from ".";
+import AxiosInstances from "./index";
 const createService = async (data) => {
     return await AxiosInstances.post("/service", data);
 }
