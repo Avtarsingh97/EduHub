@@ -20,7 +20,7 @@ const AllMentors = () => {
   const fetchAllMentors = async () => {
     try {
       setLoading(true);
-      const response = await mentorApi.getAllMentors({ page, limit: 10 });
+      const response = await mentorApi.getAllMentors({ page, limit: 9 });
 
       const newMentors = (await response?.data?.mentors) || [];
       setMentors((prev) => {
@@ -29,7 +29,7 @@ const AllMentors = () => {
         return [...prev, ...uniqueNew];
       });
 
-      if (newMentors.length < 10) {
+      if (newMentors.length < 9) {
         setHasMore(false);
       } else {
         setPage((prev) => prev + 1);
