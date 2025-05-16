@@ -20,4 +20,8 @@ app.use(cookieParser());
 
 app.use(config.PREFIX,routes);
 
+app.get('/', (req, res) => {
+    res.send('EduHub Backend API is running.');
+  });
+
 module.exports=app;
