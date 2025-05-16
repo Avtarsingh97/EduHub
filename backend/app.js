@@ -8,7 +8,12 @@ require("./config/db");
 const routes = require('./routes/v1');
 const config = require('./config');
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://eduhub-steel.vercel.app',
+    credentials: true, // if you're using cookies or headers like Authorization
+  }));
+
+  
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
