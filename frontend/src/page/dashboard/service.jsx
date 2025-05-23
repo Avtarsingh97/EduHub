@@ -102,7 +102,7 @@ const Services = () => {
   const onServiceStatus = (value) => {
     switch (value) {
       case "true":
-        form.setFieldsValue({ note: "Service Active.." });
+        form.setFieldsValue({ note: "Service Active" });
         break;
       case "false":
         form.setFieldsValue({ note: "Service Disabled" });
@@ -190,7 +190,7 @@ const Services = () => {
 
         {/* Spinner to show loading status */}
         <Spin spinning={loading}>
-          <div className='grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3'>
+          <div className='grid grid-cols-1 gap-6 mt-6 md:grid-cols-1 lg:grid-cols-2'>
             {/* Display the list of services */}
             {services?.map((service) => (
               <ServiceCard

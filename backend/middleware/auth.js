@@ -41,7 +41,7 @@ const protect = async(req,res,next)=>{
         console.error("JWT Auth Error:", error);
         return next(
             new ApiError(
-                httpStatus.authorization,'You are not allowed'
+                httpStatus.unauthorized,'You are not allowed'
             )
         )
     }

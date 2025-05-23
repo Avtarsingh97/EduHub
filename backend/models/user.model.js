@@ -90,8 +90,6 @@ userSchema.pre('save', async function(next){
     next();
 });
 
-userSchema.index({email:1});
-
 const UserModel = model('User',userSchema);
 
 module.exports = UserModel;

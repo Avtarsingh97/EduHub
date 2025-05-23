@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Toaster from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 import ProtectedRoute from "./components/ProtectedRoute";
 import routes from "./routes";
 
@@ -12,7 +12,7 @@ function App() {
   
   return (
     <div className='mx-auto max-w-screen-3xl'>
-      {/* <Toaster/> */}
+      <Toaster/>
       <Router>
         <Routes>
           {routes.map((route) => (

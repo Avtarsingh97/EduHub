@@ -1,11 +1,11 @@
-const express=require('express');
-const router=express.Router();
+const express = require('express');
+const router = express.Router();
 const homeRoute = require('./home.route');
 const authRoute = require("./auth.route");
 const mentorRoute= require("./mentor.route");
 const userRoutes = require("./user.routes");
 const serviceRoutes  = require("./service.route");
-
+const bookingRoute = require("./booking.routes")
 const Routes = [
     {
         path:'/',
@@ -27,6 +27,10 @@ const Routes = [
         path:'/service',
         route:serviceRoutes
     },
+    {
+        path:'/booking',
+        route: bookingRoute
+    }
 ];
 
 
