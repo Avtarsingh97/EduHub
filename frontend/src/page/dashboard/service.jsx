@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Dashboard from "./dashboard";
 import ServiceCard from "../../components/ServiceCard";
 import service from "../../apiManager/service";
-import { Button, Input, Modal, Form, Spin, Select } from "antd";
+import { Button, Input, Modal, Form, Spin, Select, DatePicker, TimePicker } from "antd";
 import toast from "react-hot-toast";
 import { FiPlus } from "react-icons/fi";
 import useUserStore from "../../store/user";
+import dayjs from 'dayjs';
 
 const Services = () => {
   const [services, setServices] = useState([]); // State to hold services
@@ -15,7 +16,11 @@ const Services = () => {
   const { setUser, user: mentorData } = useUserStore(); // To fecth mentor id from userState
 
   const { Option } = Select;
+  // const { RangePicker } = DatePicker;
   const [form] = Form.useForm();
+  const courseType = Form.useWatch("courseType", form);
+
+  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -41,7 +46,29 @@ const Services = () => {
   useEffect(() => {
     if (isModalVisible) {
       if (editingService) {
-        form.setFieldsValue({ ...editingService, active: String(editingService.active) });
+        const {
+          active,
+          availability = [],
+          fixedStartTime,
+          fixedEndTime,
+          fromDate,
+          toDate,
+          ...rest
+        } = editingService;
+  
+        form.setFieldsValue({
+          ...rest,
+          active: String(active),
+          availability: availability.map(slot => ({
+            ...slot,
+            startTime: slot.startTime ? dayjs(slot.startTime, "HH:mm") : null,
+            endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
+          })),
+          fixedStartTime: fixedStartTime ? dayjs(fixedStartTime, "HH:mm") : null,
+          fixedEndTime: fixedEndTime ? dayjs(fixedEndTime, "HH:mm") : null,
+          fromDate: fromDate ? dayjs(fromDate, "YYYY-MM-DD") : null,
+          toDate: toDate ? dayjs(toDate, "YYYY-MM-DD") : null,
+        });
       } else {
         form.resetFields();
       }
@@ -70,17 +97,44 @@ const Services = () => {
   const handleEditService = async (values) => {
     setLoading(true);
     const serviceId = editingService?._id;
+
+    if (values.courseType === "fixed-course") {
+      // ignore availability
+      delete values.availability;
+    } else if (values.courseType === "one-on-one") {
+      // ignore fixed-course fields
+      delete values.fromDate;
+      delete values.toDate;
+      delete values.fixedDays;
+      delete values.fixedStartTime;
+      delete values.fixedEndTime;
+    }
+
+    console.log(values);
+    
+
+    if (values.availability) {
+      values.availability = values.availability.map(slot => ({
+        ...slot,
+        startTime: slot.startTime.format("HH:mm"),
+        endTime: slot.endTime.format("HH:mm"),
+      }));
+    }
+
+    if (values.fixedStartTime) {
+      values.fixedStartTime = values.fixedStartTime.format("HH:mm");
+    }
   
+    if (values.fixedEndTime) {
+      values.fixedEndTime = values.fixedEndTime.format("HH:mm");
+    }
+    
+
     try {
       const response = await service.editService(serviceId, values);
-      console.log(response);
       
-      setServices((prevServices) =>
-        prevServices.map((service) =>
-          service._id === serviceId ? response?.data?.service : service
-        )
-      );
-  
+      setServices((prevServices) => prevServices.map((service) => (service._id === serviceId ? response?.data?.service : service)));
+
       setIsModalVisible(false);
       toast.success("Service updated successfully!");
     } catch (error) {
@@ -91,7 +145,6 @@ const Services = () => {
       setLoading(false);
     }
   };
-  
 
   // Handle opening the modal for editing a service
   const handleEdit = (service) => {
@@ -110,8 +163,10 @@ const Services = () => {
       default:
     }
   };
+
   return (
     <Dashboard>
+    
       <div className='p-6'>
         <div className='flex items-center justify-between mb-6'>
           <h2 className='text-2xl font-semibold'>Your Services</h2>
@@ -138,6 +193,7 @@ const Services = () => {
             form={form}
             onFinish={editingService ? handleEditService : handleCreateService}
           >
+            {/* Service name block */}
             <Form.Item
               label='Service Name'
               name='serviceName'
@@ -145,6 +201,8 @@ const Services = () => {
             >
               <Input />
             </Form.Item>
+
+            {/* Description block */}
             <Form.Item
               label='Description'
               name='description'
@@ -152,6 +210,8 @@ const Services = () => {
             >
               <Input.TextArea />
             </Form.Item>
+
+            {/* Duration block */}
             <Form.Item
               label='Duration (mins)'
               name='duration'
@@ -159,6 +219,20 @@ const Services = () => {
             >
               <Input type='number' />
             </Form.Item>
+
+            {/* Course type block */}
+            <Form.Item
+              name='courseType'
+              label='Course Type'
+              rules={[{ required: true, message: "Please select any one course type!" }]}
+            >
+              <Select placeholder='Select course type'>
+                <Option value='one-on-one'>One-on-One</Option>
+                <Option value='fixed-course'>Fixed Course</Option>
+              </Select>
+            </Form.Item>
+
+            {/* Price block */}
             <Form.Item
               label='Price (INR)'
               name='price'
@@ -166,6 +240,8 @@ const Services = () => {
             >
               <Input type='number' />
             </Form.Item>
+
+            {/* Status block */}
             <Form.Item
               name='active'
               label='Status'
@@ -178,6 +254,115 @@ const Services = () => {
                 <Option value='false'>Disable</Option>
               </Select>
             </Form.Item>
+
+            {/* Availabilitiy block - One-on-One */}
+            {courseType === "one-on-one" && (
+              <>
+                <Form.List name='availability'>
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name }) => (
+                        <div
+                          key={key}
+                          style={{ display: "flex", gap: "0.5rem" }}
+                        >
+                          <Form.Item
+                            name={[name, "day"]}
+                          >
+                            <Select
+                              placeholder='Select day'
+                              style={{ width: 120 }}
+                            >
+                              {daysOfWeek.map((day) => (
+                                <Option
+                                  key={day}
+                                  value={day}
+                                >
+                                  {day}
+                                </Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                          <Form.Item
+                            name={[name, "startTime"]}
+                          >
+                            <TimePicker format='HH:mm' />
+                          </Form.Item>
+                          <Form.Item
+                            name={[name, "endTime"]}
+                          >
+                            <TimePicker format='HH:mm' />
+                          </Form.Item>
+                          <Button
+                            onClick={() => remove(name)}
+                            danger
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ))}
+                      <Form.Item>
+                        <Button
+                          type='dashed'
+                          onClick={() => add()}
+                          block
+                        >
+                          Add Time Slot
+                        </Button>
+                      </Form.Item>
+                    </>
+                  )}
+                </Form.List>
+              </>
+            )}
+
+            {/* Fixed course */}
+            {courseType === "fixed-course" && (
+              <>
+                <Form.Item
+                  name='fromDate'
+                  label='From Date'
+                >
+                  <DatePicker />
+                </Form.Item>
+                <Form.Item
+                  name='toDate'
+                  label='To Date'
+                >
+                  <DatePicker />
+                </Form.Item>
+                <Form.Item
+                  name='fixedDays'
+                  label='Days of the Week'
+                >
+                  <Select
+                    mode='multiple'
+                    placeholder='Select days'
+                  >
+                    {daysOfWeek.map((day) => (
+                      <Option
+                        key={day}
+                        value={day}
+                      >
+                        {day}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  name='fixedStartTime'
+                  label='Start Time'
+                >
+                  <TimePicker format='HH:mm' />
+                </Form.Item>
+                <Form.Item
+                  name='fixedEndTime'
+                  label='End Time'
+                >
+                  <TimePicker format='HH:mm' />
+                </Form.Item>
+              </>
+            )}
 
             <Button
               type='primary'

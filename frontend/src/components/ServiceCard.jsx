@@ -29,7 +29,8 @@ const ServiceCard = ({ service, onEdit }) => {
       {/* Service Price */}
       <div className="flex justify-between px-3 mb-3 text-lg font-bold text-gray-800">
         <p> Price: ₹{service?.price}</p>
-        <p> Duration: {service?.duration} mins.</p>
+        <p> Duration: {service?.duration} mins.</p><br/>
+        <p> Course Type: {service?.courseType}</p>
       </div>
 
       {/* Action Buttons: Edits */}

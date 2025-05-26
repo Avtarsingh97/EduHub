@@ -5,6 +5,7 @@ const validate = require("../../middleware/validate");
 const authMiddleware = require("../../middleware/auth");
 const {createServiceSchema} = require("../../validations/service.validation");
 const router = express.Router();
+const cleanServicePayload = require("../../middleware/cleanServicePayload");
 
 
 router.post("/", validate(createServiceSchema),
@@ -15,6 +16,7 @@ asyncHandler(serviceController.createService)
 
 
 router.put("/:serviceId",
+    cleanServicePayload,
     validate(createServiceSchema),
     authMiddleware.protect,
     authMiddleware.restrictTo("mentor"),
