@@ -16,7 +16,6 @@ asyncHandler(serviceController.createService)
 
 
 router.put("/:serviceId",
-    cleanServicePayload,
     validate(createServiceSchema),
     authMiddleware.protect,
     authMiddleware.restrictTo("mentor"),
@@ -30,9 +29,8 @@ router.get("/:mentorId",
     asyncHandler(serviceController.getServiceByMentor)
 );
 
-router.get("/:serviceId",
+router.get("/id/:serviceId",
     authMiddleware.protect,
-    authMiddleware.restrictTo("mentor"),
     asyncHandler(serviceController.getServiceById)
 );
 

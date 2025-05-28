@@ -36,7 +36,7 @@ const protect = async(req,res,next)=>{
         }
 
         req.user = currentUser;
-        next();
+        return next();
     } catch (error) {
         console.error("JWT Auth Error:", error);
         return next(

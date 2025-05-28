@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const ServiceCardUserSide = ({ service, username }) => {
-    console.log(service, username);
     
   const navigate = useNavigate();
 
@@ -12,6 +11,7 @@ const ServiceCardUserSide = ({ service, username }) => {
       console.error("Username is missing!");
       return; // Prevent navigation
     }
+    
     navigate(`/mentor/${username}/service/${service._id}`);
   };
   

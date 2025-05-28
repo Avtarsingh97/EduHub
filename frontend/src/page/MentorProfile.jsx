@@ -17,7 +17,6 @@ const MentorProfile = () => {
         const response = await mentorApi.getMentorsByUsername(username);
         const mentorDetail = response?.data?.mentor || {};
         const mentorService = response?.data?.services;
-        console.log(mentorService);
         setServices(mentorService)
         setMentor(mentorDetail);
       } catch (error) {

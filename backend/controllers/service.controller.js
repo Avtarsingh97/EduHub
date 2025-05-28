@@ -29,9 +29,8 @@ const updateService = async (req, res, next) => {
     const mentorId = req.user._id;
     const { serviceName, description, duration, courseType, price, availability, fixedDays, fixedEndTime, fixedStartTime, fromDate, toDate  } = req.body;
     
+    
     const updatedService = await serviceService.updateService(serviceId, mentorId, { serviceName, description, duration, courseType, price, availability, fixedDays, fixedEndTime, fixedStartTime, fromDate, toDate  });
-
-    console.log(updatedService);
     
     if (!updatedService) {
       throw new ApiError(httpStatus.notFound, "Service not found");
@@ -71,10 +70,12 @@ const getServiceByMentor = async (req, res, next) => {
 
 const getServiceById = async (req, res, next) => {
   try {
-    const serviceId = req.user._id;
-    const service = await serviceService.getServicebyId(serviceId);
+    const serviceId = req.params.serviceId;
+    
+    const service = await serviceService.getServiceById(serviceId);
+    
         
-    if (!serviceId) {
+    if (!service) {
       return res.status(httpStatus.notFound).json({
         success: false,
         message: "Service not found!!",

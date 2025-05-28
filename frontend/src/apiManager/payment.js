@@ -1,0 +1,36 @@
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/v1/payment";
+
+const createOrder = async ({ amount, currency, name, description }) => {
+    try {
+      const response = await axios.post(`${API_URL}/create-order`, {
+        amount,
+        currency,
+        name,
+        description,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error creating order:", error);
+      throw new Error("Failed to create order");
+    }
+  };
+
+const verifyPayment = async (paymentData) => {
+    try {
+      const response = await axios.post(`${API_URL}/verify-payment`, paymentData);
+      return response.data;
+    } catch (error) {
+      console.error("Error verifying payment:", error);
+      return null;
+    }
+  };
+
+  const paymentApi = {
+    createOrder,
+    verifyPayment
+  }
+
+
+export default paymentApi;

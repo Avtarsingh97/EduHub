@@ -9,6 +9,7 @@ import MentorProfile from "@/page/MentorProfile";
 import Schedule from "@/page/dashboard/Schedule";
 import Bookings from "@/page/dashboard/bookings";
 import BookingPages from "@/page/BookingPages";
+import PaymentPage from "@/page/dashboard/PaymentPage";
 
 const routes = [
   { path: "/", element: <Home />, isProtected: false },
@@ -52,6 +53,11 @@ const routes = [
     path: "/mentor/:username/service/:serviceId",
     element: <BookingPages />,
     isProtected: true, // Set to true if the page requires authentication
+  },
+  {
+    path: "/mentor/:username/service/:serviceId/payment",
+    element: <PaymentPage/>,
+    isProtected: true, // Optional: Based on your authentication logic
   },
 ];
 

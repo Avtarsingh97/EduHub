@@ -6,7 +6,7 @@ import { Button, Input, Modal, Form, Spin, Select, DatePicker, TimePicker } from
 import toast from "react-hot-toast";
 import { FiPlus } from "react-icons/fi";
 import useUserStore from "../../store/user";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const Services = () => {
   const [services, setServices] = useState([]); // State to hold services
@@ -46,20 +46,12 @@ const Services = () => {
   useEffect(() => {
     if (isModalVisible) {
       if (editingService) {
-        const {
-          active,
-          availability = [],
-          fixedStartTime,
-          fixedEndTime,
-          fromDate,
-          toDate,
-          ...rest
-        } = editingService;
-  
+        const { active, availability = [], fixedStartTime, fixedEndTime, fromDate, toDate, ...rest } = editingService;
+
         form.setFieldsValue({
           ...rest,
           active: String(active),
-          availability: availability.map(slot => ({
+          availability: availability.map((slot) => ({
             ...slot,
             startTime: slot.startTime ? dayjs(slot.startTime, "HH:mm") : null,
             endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
@@ -75,13 +67,69 @@ const Services = () => {
     }
   }, [editingService, form, isModalVisible]);
 
+  const convertToAvailabilityObject = (slots) => {
+    return slots.reduce((acc, { day, startTime, endTime }) => {
+      if (!acc[day]) {
+        acc[day] = [];
+      }
+      acc[day].push({ startTime, endTime });
+      return acc;
+    }, {});
+  };
+
+  const formatFormValues = (values) => {
+    if (values.courseType === "fixed-course") {
+      // ignore availability
+      delete values.availability;
+    } else if (values.courseType === "one-on-one") {
+      // ignore fixed-course fields
+      delete values.fromDate;
+      delete values.toDate;
+      delete values.fixedDays;
+      delete values.fixedStartTime;
+      delete values.fixedEndTime;
+    }
+
+    if (values.availability) {
+      values.availability = values.availability.map((slot) => ({
+        ...slot,
+        startTime: slot.startTime.format("HH:mm"),
+        endTime: slot.endTime.format("HH:mm"),
+      }));
+    }
+
+    if (values.fixedStartTime) {
+      values.fixedStartTime = values.fixedStartTime.format("HH:mm");
+    }
+
+    if (values.fixedEndTime) {
+      values.fixedEndTime = values.fixedEndTime.format("HH:mm");
+    }
+    console.log(values);
+    
+
+    const rawSlots = values.availability.map((slot) => ({
+      day: slot.day,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+    }));
+
+    const formattedAvailability = convertToAvailabilityObject(rawSlots);
+    values.availability = formattedAvailability;
+    console.log(values);
+
+    return values;
+  };
+
   // Handle creating a new service
   const handleCreateService = async (values) => {
     setLoading(true);
     setEditingService(null);
 
+    const formattedValues = formatFormValues(values);
+
     try {
-      const response = await service.createService(values);
+      const response = await service.createService(formattedValues);
       setServices((prevServices) => [...prevServices, response?.data?.service]);
       setIsModalVisible(false);
       toast.success("Service created successfully!");
@@ -98,41 +146,40 @@ const Services = () => {
     setLoading(true);
     const serviceId = editingService?._id;
 
-    if (values.courseType === "fixed-course") {
-      // ignore availability
-      delete values.availability;
-    } else if (values.courseType === "one-on-one") {
-      // ignore fixed-course fields
-      delete values.fromDate;
-      delete values.toDate;
-      delete values.fixedDays;
-      delete values.fixedStartTime;
-      delete values.fixedEndTime;
-    }
+    const formattedValues = formatFormValues(values);
 
-    console.log(values);
-    
+    // if (values.courseType === "fixed-course") {
+    //   // ignore availability
+    //   delete values.availability;
+    // } else if (values.courseType === "one-on-one") {
+    //   // ignore fixed-course fields
+    //   delete values.fromDate;
+    //   delete values.toDate;
+    //   delete values.fixedDays;
+    //   delete values.fixedStartTime;
+    //   delete values.fixedEndTime;
+    // }
+    // console.log(values);
 
-    if (values.availability) {
-      values.availability = values.availability.map(slot => ({
-        ...slot,
-        startTime: slot.startTime.format("HH:mm"),
-        endTime: slot.endTime.format("HH:mm"),
-      }));
-    }
+    // if (values.availability) {
+    //   values.availability = values.availability.map(slot => ({
+    //     ...slot,
+    //     startTime: slot.startTime.format("HH:mm"),
+    //     endTime: slot.endTime.format("HH:mm"),
+    //   }));
+    // }
 
-    if (values.fixedStartTime) {
-      values.fixedStartTime = values.fixedStartTime.format("HH:mm");
-    }
-  
-    if (values.fixedEndTime) {
-      values.fixedEndTime = values.fixedEndTime.format("HH:mm");
-    }
-    
+    // if (values.fixedStartTime) {
+    //   values.fixedStartTime = values.fixedStartTime.format("HH:mm");
+    // }
+
+    // if (values.fixedEndTime) {
+    //   values.fixedEndTime = values.fixedEndTime.format("HH:mm");
+    // }
 
     try {
-      const response = await service.editService(serviceId, values);
-      
+      const response = await service.editService(serviceId, formattedValues);
+
       setServices((prevServices) => prevServices.map((service) => (service._id === serviceId ? response?.data?.service : service)));
 
       setIsModalVisible(false);
@@ -166,7 +213,6 @@ const Services = () => {
 
   return (
     <Dashboard>
-    
       <div className='p-6'>
         <div className='flex items-center justify-between mb-6'>
           <h2 className='text-2xl font-semibold'>Your Services</h2>
@@ -266,9 +312,7 @@ const Services = () => {
                           key={key}
                           style={{ display: "flex", gap: "0.5rem" }}
                         >
-                          <Form.Item
-                            name={[name, "day"]}
-                          >
+                          <Form.Item name={[name, "day"]}>
                             <Select
                               placeholder='Select day'
                               style={{ width: 120 }}
@@ -283,14 +327,10 @@ const Services = () => {
                               ))}
                             </Select>
                           </Form.Item>
-                          <Form.Item
-                            name={[name, "startTime"]}
-                          >
+                          <Form.Item name={[name, "startTime"]}>
                             <TimePicker format='HH:mm' />
                           </Form.Item>
-                          <Form.Item
-                            name={[name, "endTime"]}
-                          >
+                          <Form.Item name={[name, "endTime"]}>
                             <TimePicker format='HH:mm' />
                           </Form.Item>
                           <Button

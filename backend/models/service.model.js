@@ -1,17 +1,25 @@
 const { required } = require("joi");
 const { Schema, model } = require("mongoose");
 
-const availabilitySchema = new Schema({
-  day: {
-    type: String,
-    enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  },
+const TimeSlotSchema = new Schema({
   startTime: {
-    type: String, 
+    type: String,
+    required: true, // or false if optional
   },
   endTime: {
-    type: String, 
+    type: String,
+    required: true,
   },
+});
+
+const AvailabilitySchema = new Schema({
+  Sunday: [TimeSlotSchema],
+  Monday: [TimeSlotSchema],
+  Tuesday: [TimeSlotSchema],
+  Wednesday: [TimeSlotSchema],
+  Thursday: [TimeSlotSchema],
+  Friday: [TimeSlotSchema],
+  Saturday: [TimeSlotSchema],
 });
 
 const serviceSchema = new Schema(
@@ -50,7 +58,7 @@ const serviceSchema = new Schema(
       default: true,
     },
     // === For one-on-one sessions ===
-    availability: [availabilitySchema],
+    availability: AvailabilitySchema,
 
     // === For fixed courses ===
     fromDate: Date,

@@ -1,39 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AxiosInstances from "../apiManager/index"; // Adjust the import based on your file structure
+import AxiosInstances from "../apiManager/index"; 
+import serviceAPI from '../apiManager/service';
+
 
 const BookingPages = () => {
   const { username, serviceId } = useParams();
   const navigate = useNavigate();
 
   // 🔹 Hardcoded availability for debugging
-  const hardcodedAvailability = {
-    sunday: [{ startTime: "10:00", endTime: "11:00" }, { startTime: "14:00", endTime: "15:00" }],
-    monday: [{ startTime: "09:00", endTime: "10:00" }],
-  };
+  // const hardcodedAvailability = {
+  //   sunday: [{ startTime: "10:00", endTime: "11:00" }, { startTime: "14:00", endTime: "15:00" }],
+  //   monday: [{ startTime: "09:00", endTime: "10:00" }],
+  // };
 
-  const [availability, setAvailability] = useState(hardcodedAvailability); // Default to hardcoded
+  const [availability, setAvailability] = useState({}); // Default to hardcoded
   const [service, setService] = useState({ price: 1 }); // Mock service data, replace with actual API call
 
-  useEffect(() => {
-    const fetchAvailability = async () => {
-      try {
-        const response = await AxiosInstances.get(`/availability/${username}?durationInMinutes=60`);
+  useEffect(()=>{
+    const fetchServiceDetail = async() =>{
+    try {
+      const res = await serviceAPI.getServiceById(serviceId);
+      setService(res?.data?.service);
+      setAvailability(res?.data?.service?.availability);
+    } catch (error) {
+      console.log("Error fetching service detail:" , error);
+    }
+    }
+    fetchServiceDetail();
+  },[])
+
+  // useEffect(() => {
+  //   const fetchAvailability = async () => {
+  //     try {
+  //       // const response = await AxiosInstances.get(`/availability/${username}?durationInMinutes=60`);
         
-        console.log("🚀 Full API Response:", response.data); // Log entire response
+  //       console.log("🚀 Full API Response:", response.data); // Log entire response
 
-        if (response.data?.availability?.weeklyAvailability) {
-          setAvailability(response.data.availability.weeklyAvailability);
-        } else {
-          console.warn("❌ No 'weeklyAvailability' found in API response. Using hardcoded data.");
-        }
-      } catch (error) {
-        console.error("❌ Error fetching availability:", error?.response?.data || error);
-      }
-    };
+  //       if (response.data?.availability?.weeklyAvailability) {
+  //         setAvailability(response.data.availability.weeklyAvailability);
+  //       } else {
+  //         console.warn("❌ No 'weeklyAvailability' found in API response. Using hardcoded data.");
+  //       }
+  //     } catch (error) {
+  //       console.error("❌ Error fetching availability:", error?.response?.data || error);
+  //     }
+  //   };
 
-    fetchAvailability();
-  }, [username]);
+  //   fetchAvailability();
+  // }, [username]);
+
 
   const onBookSession = (date, timeSlot) => {
     navigate(`/mentor/${username}/service/${serviceId}/payment`, {
@@ -55,7 +71,7 @@ const BookingPages = () => {
         {Object.keys(availability).length === 0 ? (
           <p className="text-center text-gray-500">No available slots at the moment.</p>
         ) : (
-          Object.entries(availability).map(([day, slots]) => (
+          Object.entries(availability).filter(([day, slots]) => Array.isArray(slots)&& slots.length > 0).map(([day, slots]) => (
             <div key={day} className="mb-6">
               <h3 className="text-xl font-semibold text-gray-700 capitalize">{day}</h3>
               <div className="flex flex-wrap gap-4 mt-2">
