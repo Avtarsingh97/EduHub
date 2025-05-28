@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/v1/payment";
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/v1';
 
 const createOrder = async ({ amount, currency, name, description }) => {
     try {
+        console.log(API_URL);
+        
       const response = await axios.post(`${API_URL}/create-order`, {
         amount,
         currency,
