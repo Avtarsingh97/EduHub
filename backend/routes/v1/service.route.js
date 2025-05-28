@@ -23,16 +23,17 @@ router.put("/:serviceId",
     
 );
 
+router.get("/id/:serviceId",
+    authMiddleware.protect,
+    asyncHandler(serviceController.getServiceById)
+);
 
 router.get("/:mentorId",
     authMiddleware.protect,authMiddleware.restrictTo("mentor"),
     asyncHandler(serviceController.getServiceByMentor)
 );
 
-router.get("/id/:serviceId",
-    authMiddleware.protect,
-    asyncHandler(serviceController.getServiceById)
-);
+
 
 
 module.exports = router;

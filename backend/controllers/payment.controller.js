@@ -15,7 +15,7 @@ const createOrder = async (req, res) => {
     }
 
     const amountInPaise = amount * 100; // Convert to paise
-    
+
     const options = {
       amount: amountInPaise,
       currency: "INR",
@@ -40,9 +40,9 @@ const createOrder = async (req, res) => {
         key_id: process.env.RAZORPAY_KEY_ID,
         product_name: name,
         description,
-        contact: "8567345632",
-        name: "Pinkee Mishra",
-        email: "pinkee.mishra343390@gmail.com",
+        contact: "9999999999",
+        name: "Avtar singh",
+        email: "officialavtar13@gmail.com",
       });
     });
   } catch (error) {
