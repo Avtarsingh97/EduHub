@@ -6,7 +6,7 @@ const createOrder = async ({ amount, currency, name, description }) => {
     try {
         console.log(API_URL);
         
-      const response = await axios.post(`${API_URL}/create-order`, {
+      const response = await axios.post(`${API_URL}/payment/create-order`, {
         amount,
         currency,
         name,
@@ -21,7 +21,7 @@ const createOrder = async ({ amount, currency, name, description }) => {
 
 const verifyPayment = async (paymentData) => {
     try {
-      const response = await axios.post(`${API_URL}/verify-payment`, paymentData);
+      const response = await axios.post(`${API_URL}/payment/verify-payment`, paymentData);
       return response.data;
     } catch (error) {
       console.error("Error verifying payment:", error);

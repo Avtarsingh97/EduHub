@@ -4,6 +4,11 @@ module.exports = {
     PORT: process.env.PORT,
     DB_URL : process.env.DB_URL,
     PREFIX: process.env.PREFIX || '/v1',
+    zoom:{
+    clientId: process.env.ZOOM_CLIENT_ID,
+    clientSecret: process.env.ZOOM_CLIENT_SECRET,
+    accountId: process.env.ZOOM_ACCOUNT_ID
+    },
     jwt:{
         accessSecret:process.env.JWT_ACCESS_SECRET || "random-secret",
         accessExpirationMinutes:process.env.JWT_ACCESS_EXPIRATION_MINUTES || 30,

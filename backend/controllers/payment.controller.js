@@ -1,6 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 require("dotenv").config();
+const {getZoomAccessToken} =require('../services/zoom.service')
 
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -56,18 +57,20 @@ const createOrder = async (req, res) => {
 
 
 
-const verifyPayment = (paymentId, orderId, signature) => {
-  const body = orderId + "|" + paymentId;
+const verifyPayment = (req,res) => {
+  const {razorpay_order_id, razorpay_signature, razorpay_payment_id }= req.body
+  // const body = orderId + "|" + paymentId;
   const expectedSignature = crypto
     .createHmac("sha256", razorpayInstance.key_secret)
-    .update(body)
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
     .digest("hex");
 
-  if (expectedSignature === signature) {
-    return { success: true };
-  } else {
-    return { success: false }
-  }
+  if (expectedSignature !== razorpay_signature) {
+    return res.status(400).json({ success: false, msg: "transaction is not legit" });
+  } 
+
+  res.status(200).json({success: true, order_id: razorpay_order_id, paymentId: razorpay_payment_id})
+getZoomAccessToken()
 };
 
 
