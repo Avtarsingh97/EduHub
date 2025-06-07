@@ -70,7 +70,7 @@ const verifyPayment = (req,res) => {
   } 
 
   res.status(200).json({success: true, order_id: razorpay_order_id, paymentId: razorpay_payment_id})
-getZoomAccessToken()
+
 };
 
 
