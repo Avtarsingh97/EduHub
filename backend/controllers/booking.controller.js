@@ -9,6 +9,17 @@ const initiateBookingAndPayment = async(req,res)=>{
 
     const service = await serviceService.getServiceById(serviceId);
 
+    const isSlotTaken = await bookingService.isSlotAlreadyBooked({
+        mentor: service.mentor,
+        dateAndTime,
+      });
+    
+      if (isSlotTaken) {
+        return res.status(httpStatus.conflict).json({
+          success: false,
+          msg: "This slot is already booked. Please choose another time.",
+        });
+      }
     // Create a new booking
     const newBooking = await bookingService.createBooking({
         user : req.user._id,
@@ -17,28 +28,10 @@ const initiateBookingAndPayment = async(req,res)=>{
         service : serviceId,
         price : service.price,
     });
-
-    // Initializ Razorpay instance
-    const razorpay = new Razorpay(config.razorpay);
-
-    // Create an order in Razorpay
-    const options = {
-        amount : service.price * 100,
-        currency : "INR",
-        receipt : `receipt_order_${newBooking._id}`,
-        payment_capture : 1,
-        notes : {
-            bookingId : newBooking._id,
-        },
-    };
-
-    const order = await razorpay.orders.create(options);
-
-    // Send response with booking and payment details
     res.status(httpStatus.created).json({
-        booking : newBooking,
-        order,
-    });
+        booking: newBooking
+      })
+    
 };
 
 
