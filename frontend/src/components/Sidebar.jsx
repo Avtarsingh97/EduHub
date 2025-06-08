@@ -119,7 +119,9 @@ const Sidebar = () => {
           { label: "Bookings", path: "/dashboard/bookings" },
           { label: "Payment", path: "/dashboard/payment" },
         ]
-      : []),
+      : [
+        { label: "Bookings", path: "/dashboard/user-bookings" },
+      ]),
   ];
 
   return (

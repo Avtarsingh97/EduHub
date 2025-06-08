@@ -3,6 +3,10 @@
       {
         "source": "/api/:path*",
         "destination": "https://mentorapp-backend-vsuv.onrender.com/v1/:path*"
+      },
+      {
+        "source" : "/(.*)",
+        "destination": "/index.html"
       }
     ]
   }
