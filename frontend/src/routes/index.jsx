@@ -37,7 +37,7 @@ const routes = [
   {
     path: "/dashboard/bookings",
     element: <Bookings />,
-    isProtected: true,
+    isProtected: false,
   },
   {
     path: "/mentors",

@@ -54,10 +54,7 @@ const getBookings = async(req,res)=>{
 
 const getMentorBookings = async(req,res)=>{
     const bookings = await bookingService.getMentorBookings(req.user._id);
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
+
     res.status(httpStatus.ok).json({
         success : true,
         bookings
