@@ -19,20 +19,62 @@ const sendEmail = async (to, subject, html) => {
   }
 };
 
-const sendConfirmationMail = async (to, name, meetingLink, date, time) => {
+const sendConfirmationMail = async (to, name,status, meetingLink, date , time) => {
   const subject = "Booking Confirmation";
 
-  const template = path.join(__dirname, "../template/confirmation.ejs");
+  // Dynamically select template based on status
+  let template ;
+console.log("status: ",status);
+
+  if (status === "confirmed") {
+    console.log("to: ", to);
+    
+     template = path.join(__dirname, `../template/confirmation.ejs` );
+     console.log("confirmed",template);
+  } else if (status === "rescheduled") {
+     template = path.join(__dirname, `../template/rescheduled.ejs` );
+     console.log("rescheduled",template);
+  }
+
+  console.log(template);
+  
+
   const data = await ejs.renderFile(template, {
     name,
     meetingLink,
     date,
     time,
+    status, // optional: if you want to use in the template
+  });
+console.log("data: ", data);
+
+  return sendEmail(to, subject, data);
+};
+
+const sendRescheduleRequestMail = async (to, name, bookingPageUrl) => {
+  const subject = "Reschedule Request";
+
+  const template = path.join(__dirname, "../template/rescheduleRequest.ejs");
+  const data = await ejs.renderFile(template, {
+    name,
+    bookingPageUrl
   });
 
   return sendEmail(to, subject, data);
 };
 
+const resetPasswordtMail = async (name, to, otp, token) => {
+  const subject = "Reset Password Request";
+
+  const templatePath = path.join(__dirname, "../template/resetPassword.ejs");
+  const data = await ejs.renderFile(templatePath, { name, otp,to, token });
+
+  return sendEmail(to, subject, data);
+};
+
+
 module.exports = {
   sendConfirmationMail,
+  sendRescheduleRequestMail,
+  resetPasswordtMail
 };

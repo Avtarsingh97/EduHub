@@ -1,30 +1,62 @@
 import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
+import { Spin } from "antd";
 import { useParams } from "react-router-dom";
 import mentorApi from "@/apiManager/mentor";
+import bookingApi from "@/apiManager/booking";
+import noImage from "../public/assets/no-image.webp"
 import { BiErrorAlt } from "react-icons/bi";
 import ServiceCardUserSide from "@/components/ServiceCardUserSide";
 
 const MentorProfile = () => {
   const { username } = useParams();
-  const [mentor, setMentor] = useState([]);
+  const [mentor, setMentor] = useState({});
   const [services, setServices] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchMentor = async () => {
       try {
-        const response = await mentorApi.getMentorsByUsername(username);
-        const mentorDetail = response?.data?.mentor || {};
-        const mentorService = response?.data?.services;
-        setServices(mentorService)
+        setLoading(true);
+        // Fetch mentor details and services
+        const mentorResponse = await mentorApi.getMentorsByUsername(username);
+        const mentorDetail = mentorResponse?.data?.mentor || {};
+        const mentorService = mentorResponse?.data?.services || [];
+        
+       
+        
+        setServices(mentorService);
         setMentor(mentorDetail);
+        
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMentor();
   }, [username]);
+
+  const fetchBookings = async()=>{
+ // Fetch bookings for this mentor
+ const bookingsResponse = await bookingApi.getBookingsByUsername(username);
+ const mentorBookings = bookingsResponse?.data?.bookings || [];
+ setBookings(mentorBookings);
+ // Access the 'bookings' property
+  }
+  // Function to check if a time slot is booked
+  const isSlotBooked = (serviceId, date, startTime, endTime) => {
+    return bookings.some(booking => 
+      booking.service._id === serviceId &&
+      ((booking.serviceType === "one-on-one" && 
+        booking.bookingDate === date &&
+        booking.startTime === startTime &&
+        booking.endTime === endTime) ||
+       (booking.serviceType === "fixed-course" &&
+        new Date(booking.sessionDate).toISOString() === date))
+    );
+  };
 
 
   const socialLinks = [
@@ -52,7 +84,7 @@ const MentorProfile = () => {
       <div className='max-w-6xl mx-auto max-h-fit'>
         {/* Heading Section for All Mentors */}
         <div className='w-full flex flex-col items-center justify-center h-[300px] bg-gray-100'>
-          <h1 className='text-center text-2xl md:text-4xl font-semibold py-5'>{mentor.name}</h1>
+          <h1 className='text-center text-2xl md:text-4xl font-semibold py-6'>{mentor.name}</h1>
           <p>{mentor?.profile?.title}</p>
         </div>
       </div>
@@ -62,14 +94,24 @@ const MentorProfile = () => {
         {/* Mentor Details Section */}
         <div className='realtive w-full md:w-2/3 flex flex-row my-5 gap-2 md:gap-5 p-2'>
           {/* Profile Left Section */}
-          <div className='sticky top-40 bg-teal-50 w-1/3 rounded-xl p-5 max-h-fit'>
+          <div className='sticky top-40 bg-teal-50 w-1/3 rounded-xl p-5 max-h-fit flex flex-col items-center'>
             {/* Image and Social link section */}
-            <div className='rounded-full border-y-2 border-teal-500'>
-              <img
+            
+            <div className='rounded-full '>
+            {
+              mentor.photoUrl? (
+                <img
                 src={mentor.photoUrl}
                 alt='Mentor Profile Image'
-                className='rounded-full'
+                className='rounded-full  border-teal-500'
               />
+              ):  <img
+              className='z-5 object-cover  h-full rounded-full shadow-md'
+              src={noImage}
+              alt='Profile Image Not Found'
+            />
+            }
+              
             </div>
 
             {/* Mentor Profile Section */}
@@ -127,13 +169,16 @@ const MentorProfile = () => {
               </div>
             ) : services.length > 0 ? (
               <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                {services.map((service) => (
-                  <ServiceCardUserSide
-                    key={service?._id}
-                    service={service}
-                    username={mentor?.username || username} // Ensure username is always passed
-                  />
-                ))}
+                 {services.map((service) => (
+      <ServiceCardUserSide
+        key={service?._id}
+        service={service}
+        fetchBookings={fetchBookings}
+        username={mentor?.username || username}
+        bookings={bookings} // Pass the bookings data
+        mentor= {mentor}
+      />
+    ))}
               </div>
             ) : (
               <div className='flex flex-col items-center justify-center h-full text-gray-700'>

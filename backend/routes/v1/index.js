@@ -7,7 +7,8 @@ const userRoutes = require("./user.routes");
 const serviceRoutes  = require("./service.route");
 const bookingRoute = require("./booking.routes");
 const paymentRoute = require('./payment.route');
-
+const webhookRoutes= require('./webhook.routes')
+const chatRoute= require("./chat.routes")
 
 const Routes = [
     {
@@ -37,6 +38,14 @@ const Routes = [
     {
         path: "/payment",
         route: paymentRoute,
+    },
+    {
+        path: "/webhook",
+        route: webhookRoutes
+    },
+    {
+        path: "/chat",
+        route: chatRoute,
     },
 ];
 

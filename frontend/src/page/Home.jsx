@@ -2,10 +2,11 @@ import React from "react";
 import Nav from "../components/Nav";
 import { NavLink } from "react-router-dom";
 import TopMentors from "../components/TopMentors";
-import { heroHome, heroMen, shapeOne, shapeTwo, shapeThree, shapeFour, faqImage } from "../assets/HomePage";
-import MentoringImage from "../assets/About/about-img-3.png";
-import FeatureImage from "../assets/feature-img-1.png";
-import mentee1 from "../assets/mentee1.png";
+import Chat from "@/components/Chat";
+import { heroHome, heroMen, shapeOne, shapeTwo, shapeThree, shapeFour, faqImage } from "../public/assets/HomePage";
+import MentoringImage from "../public/assets/About/about-img-3.png";
+import FeatureImage from "../public/assets/feature-img-1.png";
+import mentee1 from "../public/assets/mentee1.png";
 import { FaChalkboardTeacher, FaLink, FaBookReader, FaLightbulb, FaArrowRight } from "react-icons/fa";
 import { GiUpgrade } from "react-icons/gi";
 import features from "../data/features";
@@ -20,7 +21,7 @@ function Home() {
       <div className='bg-white'>
 
         {/* Hero Section */}
-        <section className='relative bg-teal-100 py-16 md:py-20 h-[560px] px-6 md:px-20 mx-auto max-w-screen-full '>
+        <section className='relative bg-teal-100 lg:py-16   md:py-20 h-[560px] px-6 md:px-20 mx-auto max-w-screen-full '>
           <img
             className='absolute bottom-0 right-0 h-[520px] opacity-5'
             src={heroHome}
@@ -50,7 +51,7 @@ function Home() {
             {/* Text Section */}
             <div className='md:w-1/2 text-center md:text-left z-10'>
               {/* learn with mentor button */}
-              <div className='bg-white px-2 py-2 w-[260px] rounded-full flex justify-center items-center gap-3 text-sm m-auto md:mx-0 mb-8'>
+              <div className='bg-white px-2 py-2 w-[260px] mt-5 rounded-full flex justify-center items-center gap-3 text-sm m-auto md:mx-0 mb-8'>
                 <div className='bg-teal-100 px-2 py-2 rounded-full'>
                   <FaChalkboardTeacher className='text-teal-900' />
                 </div>
@@ -361,7 +362,9 @@ function Home() {
             </div>
           </div>
         </footer>
+        <Chat/>
       </div>
+      
     </>
   );
 }

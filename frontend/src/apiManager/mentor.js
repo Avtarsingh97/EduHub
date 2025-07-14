@@ -19,16 +19,12 @@ const getMentorsBySuggestion = (query)=>{
     return AxiosInstances.get(`/mentor/suggestions?q=${query}`);
 }
 
-// const getMentorById = (username)=>{
-//     return AxiosInstances.get("/mentor/"+username);
-// }
 
 const mentorApi = {
     getAllMentors,
     getMentorsByUsername,
     getMentorsBySuggestion,
     getTopMentors,
-    // getMentorById
 }
 
 export default mentorApi;

@@ -6,22 +6,17 @@ import Profile from "../page/dashboard/profile";
 import Services from "../page/dashboard/service";
 import AllMentors from "@/page/AllMentors";
 import MentorProfile from "@/page/MentorProfile";
-import Schedule from "@/page/dashboard/Schedule";
 import Bookings from "@/page/dashboard/bookings";
-import UserBookings from "../page/dashboard/UserBooking";
 import BookingPages from "@/page/BookingPages";
 import PaymentPage from "@/page/dashboard/PaymentPage";
-import SuccessPage from "../page/SuccessPage";
-import PageNotFound from "../page/PageNotFound";
 
-const routes = [
-  { path: "/", element: <Home />, isProtected: false },
-  { path: "/signin", element: <Signin />, isProtected: false },
-  {
-    path: "/signup/:role",
-    element: <Signup />,
-    isProtected: false,
-  },
+import Payment from "@/page/dashboard/Payment";
+import ResetPassword from "@/page/ResetPassword";
+import ForgotPassword from "@/page/ForgotPassword";
+import Settings from "@/page/dashboard/Setting";
+
+export const dashboardRoutes = [
+ 
   {
     path: "/dashboard/profile",
     element: <Profile />,
@@ -33,23 +28,42 @@ const routes = [
     isProtected: true,
   },
   {
-    path: "/dashboard/schedule",
-    element: <Schedule />,
-    isProtected: true,
-  },
-  {
     path: "/dashboard/bookings",
     element: <Bookings />,
     isProtected: true,
   },
+  
+
   {
-    path: "/dashboard/user-bookings",
-    element: <UserBookings />,
+    path: "/dashboard/payment",
+    element: <Payment />,
     isProtected: true,
   },
   {
-    path: "/mentors",
-    element: <AllMentors />,
+    path: "/dashboard/settings",
+    element: <Settings />,
+    isProtected: true,
+  },
+  
+  {
+    path: "/mentor/:username/service/:serviceId",
+    element: <BookingPages />,
+    isProtected: true, 
+  },
+  {
+    path: "/mentor/:username/service/:serviceId/payment",
+    element: <PaymentPage />,
+    isProtected: true, 
+  },
+];
+
+export const publicRoutes=[ { path: "/", element: <Home />, isProtected: false },
+  { path: "/reset-password", element: <ResetPassword />, isProtected: false },
+  { path: "/forgot-password", element: <ForgotPassword />, isProtected: false },
+  { path: "/signin", element: <Signin />, isProtected: false },
+  {
+    path: "/signup/:role",
+    element: <Signup />,
     isProtected: false,
   },
   {
@@ -58,25 +72,8 @@ const routes = [
     isProtected: false,
   },
   {
-    path: "/mentor/:username/service/:serviceId",
-    element: <BookingPages />,
-    isProtected: true, // Set to true if the page requires authentication
-  },
-  {
-    path: "/mentor/:username/service/:serviceId/payment",
-    element: <PaymentPage/>,
-    isProtected: true, // Optional: Based on your authentication logic
-  },
-  {
-    path: "/success",
-    element: <SuccessPage />,
-    isProtected: true,
-  },
-  {
-    path: "*",
-    element: <PageNotFound />,
+    path: "/mentors",
+    element: <AllMentors />,
     isProtected: false,
   },
-];
-
-export default routes;
+]

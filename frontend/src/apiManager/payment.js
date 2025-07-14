@@ -1,16 +1,21 @@
 import axios from "axios";
-
+import AxiosInstances from "./index.js";
 const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/v1';
 
-const createOrder = async ({ amount, currency, name, description }) => {
-    try {
+const createOrder = async ({ amount, currency, name, description,mentorName, mentorEmail, bookingId }) => {
+    try { 
+      console.log("Api manager: ", bookingId);
+      
         console.log(API_URL);
         
-      const response = await axios.post(`${API_URL}/payment/create-order`, {
+      const response = await AxiosInstances.post(`${API_URL}/payment/create-order`, {
         amount,
         currency,
         name,
         description,
+        mentorName,
+        mentorEmail,
+        bookingId
       });
       return response.data;
     } catch (error) {
@@ -19,9 +24,11 @@ const createOrder = async ({ amount, currency, name, description }) => {
     }
   };
 
-const verifyPayment = async (paymentData) => {
+const verifyPayment = async (paymentData, bookingId) => {
     try {
-      const response = await axios.post(`${API_URL}/payment/verify-payment`, paymentData);
+      console.log("apiManager:",bookingId);
+      
+      const response = await AxiosInstances.post(`${API_URL}/payment/verify-payment/${bookingId}`, paymentData);
       return response.data;
     } catch (error) {
       console.error("Error verifying payment:", error);
@@ -29,9 +36,20 @@ const verifyPayment = async (paymentData) => {
     }
   };
 
+  const getMentorPayments= async()=>{
+try{
+  const response = await AxiosInstances.get(`${API_URL}/payment/mentor`)
+  return response.data;
+}catch(error){
+  console.error("error in fetching payments: ", error);
+  return null;
+}
+  }
+
   const paymentApi = {
     createOrder,
-    verifyPayment
+    verifyPayment,
+    getMentorPayments
   }
 
 

@@ -1,65 +1,87 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import AxiosInstances from "../apiManager/index"; 
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import serviceAPI from '../apiManager/service';
-
+import bookingApi from "../apiManager/booking"
 
 const BookingPages = () => {
   const { username, serviceId } = useParams();
   const navigate = useNavigate();
+  const [availability, setAvailability] = useState([]);
+  
+  const [loading, setLoading] = useState(true);
+const location= useLocation();
 
-  // 🔹 Hardcoded availability for debugging
-  // const hardcodedAvailability = {
-  //   sunday: [{ startTime: "10:00", endTime: "11:00" }, { startTime: "14:00", endTime: "15:00" }],
-  //   monday: [{ startTime: "09:00", endTime: "10:00" }],
-  // };
+const { 
+  service,
+  slotDetails
+} = location.state || {}; 
+console.log(location.state);
+console.log(service);
 
-  const [availability, setAvailability] = useState({}); // Default to hardcoded
-  const [service, setService] = useState({ price: 1 }); // Mock service data, replace with actual API call
+const {date, startTime, endTime= "", duration, price}= slotDetails
 
-  useEffect(()=>{
-    const fetchServiceDetail = async() =>{
-    try {
-      const res = await serviceAPI.getServiceById(serviceId);
-      setService(res?.data?.service);
-      setAvailability(res?.data?.service?.availability);
-    } catch (error) {
-      console.log("Error fetching service detail:" , error);
-    }
-    }
+
+
+  useEffect(() => {
+    const fetchServiceDetail = async () => {
+      try {
+        setLoading(true);
+        const res = await serviceAPI.getServiceById(serviceId);
+        setService(res?.data?.service || {});
+        setAvailability(res?.data?.service?.availability || []);
+      } catch (error) {
+        console.error("Error fetching service detail:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchServiceDetail();
-  },[])
+  }, [serviceId]);
 
-  // useEffect(() => {
-  //   const fetchAvailability = async () => {
-  //     try {
-  //       // const response = await AxiosInstances.get(`/availability/${username}?durationInMinutes=60`);
-        
-  //       console.log("🚀 Full API Response:", response.data); // Log entire response
+  const onBookSession = async() => {
 
-  //       if (response.data?.availability?.weeklyAvailability) {
-  //         setAvailability(response.data.availability.weeklyAvailability);
-  //       } else {
-  //         console.warn("❌ No 'weeklyAvailability' found in API response. Using hardcoded data.");
-  //       }
-  //     } catch (error) {
-  //       console.error("❌ Error fetching availability:", error?.response?.data || error);
-  //     }
-  //   };
+    try {
+      const bookingData = {
+        serviceId: serviceId,
+        ...(service.courseType === "one-on-one"
+          ? {
+              bookingDate: date,
+              startTime: startTime,
+              endTime: endTime,
+              duration: duration
+            }
+          : {
+              bookingDate: date,
+              duration:duration 
+            }),
+      };
+  
+      const response = await bookingApi.bookService(bookingData);
+console.log(response);
 
-  //   fetchAvailability();
-  // }, [username]);
-
-
-  const onBookSession = (date, timeSlot) => {
-    navigate(`/mentor/${username}/service/${serviceId}/payment`, {
-      state: {
-        date,
-        timeSlot,
-        price: service?.price,
-      },
-    });
+      navigate(`/mentor/${username}/service/${serviceId}/payment`, {
+        state: {
+          service,
+          slotDetails: {
+            date: slot.date,
+            startTime: slot.startTime,
+            endTime: slot.endTime,
+            duration: service.duration,
+            price: service.price
+          }
+        }
+      });
+      return response;
+    } catch (error) {
+      console.error("Booking creation failed:", error);
+      throw error;
+    }
+  
   };
+
+  if (loading) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center py-10 px-4">
@@ -67,36 +89,92 @@ const BookingPages = () => {
         <h2 className="text-3xl font-semibold text-center text-orange-color mb-6">
           Book Your Session
         </h2>
+        
+        {service.courseType === "fixed-course" && (
+          <>
+            <div className="flex justify-between items-center mt-6">
+              <div>
+                <span className="text-xl font-semibold text-gray-700">Start Date:</span>
+                <span className="text-lg text-orange-color ml-2">
+                  {new Date(service?.fromDate).toLocaleDateString("en-IN", {
+                    weekday: 'long',
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                  })}
+                </span>
+              </div>
+              <div>
+                <span className="text-xl font-semibold text-gray-700">End Date:</span>
+                <span className="text-lg text-orange-color ml-2">
+                  {new Date(service?.toDate).toLocaleDateString("en-IN", {
+                    weekday: 'long',
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                  })}
+                </span>
+              </div>
+            </div>
+            <div className="mt-4">
+              <span className="text-xl font-semibold text-gray-700">Time:</span>
+              <span className="text-lg text-orange-color ml-2">
+                {service.fixedStartTime} - {service.fixedEndTime}
+              </span>
+            </div>
+            <button
+              onClick={() => onBookSession(
+                service.fromDate, 
+                service.fixedStartTime, 
+                service.fixedEndTime
+              )}
+              className="w-full mt-6 px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
+            >
+              Book This Course
+            </button>
+          </>
+        )}
 
-        {Object.keys(availability).length === 0 ? (
-          <p className="text-center text-gray-500">No available slots at the moment.</p>
-        ) : (
-          Object.entries(availability).filter(([day, slots]) => Array.isArray(slots)&& slots.length > 0).map(([day, slots]) => (
-            <div key={day} className="mb-6">
-              <h3 className="text-xl font-semibold text-gray-700 capitalize">{day}</h3>
-              <div className="flex flex-wrap gap-4 mt-2">
-                {slots.length > 0 ? (
-                  slots.map((slot, index) => (
+        {service.courseType === "one-on-one" && (
+          availability.length > 0 ? (
+            availability.map((slotDay, idx) => (
+              <div key={idx} className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-700">
+                  {new Date(slotDay.date).toLocaleDateString("en-IN", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </h3>
+                <div className="flex flex-wrap gap-4 mt-2">
+                  {slotDay.timeSlots.map((slot, index) => (
                     <button
                       key={index}
-                      onClick={() => onBookSession(day, `${slot.startTime} - ${slot.endTime}`)}
+                      onClick={() => onBookSession(
+                        slotDay.date,
+                        slot.startTime,
+                        slot.endTime
+                      )}
                       className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-300"
                     >
                       {slot.startTime} - {slot.endTime}
                     </button>
-                  ))
-                ) : (
-                  <p className="text-gray-500">No slots available.</p>
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))
+            ))
+          ) : (
+            <p className="text-center text-gray-500 py-4">
+              No available slots at the moment. Please check back later.
+            </p>
+          )
         )}
 
         <div className="flex justify-between items-center mt-6">
           <div>
             <span className="text-xl font-semibold text-gray-700">Price:</span>
-            <span className="text-lg text-orange-color">₹{service?.price}</span>
+            <span className="text-lg text-orange-color ml-2">₹{service?.price}</span>
           </div>
         </div>
       </div>
