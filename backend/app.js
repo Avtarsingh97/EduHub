@@ -11,9 +11,9 @@ const routes = require('./routes/v1');
 
 
 app.use(cors({
-    origin: [config.CLIENT_URL],
-    credentials: true
-  }));
+  origin: 'https://mentor-app-brown.vercel.app',
+  credentials: true
+}));
 
 
 app.use(express.json());
