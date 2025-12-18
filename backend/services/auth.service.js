@@ -18,7 +18,6 @@ const loginUserWithEmailAndPassword = async(email,password)=>{
 }
 
 const findOtpDocByToken=async(token)=>{
-    console.log(token);
     
     return await passwordChangeLog.findOne({tokenUsed: token})
 }

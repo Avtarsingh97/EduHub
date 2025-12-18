@@ -25,7 +25,7 @@ import service from "@/apiManager/service";
 
 const Bookings = () => {
   const { user } = useUserStore();
-  console.log(user.username);
+
   const [form] = Form.useForm();
 
   const [bookings, setBookings] = useState([]);
@@ -48,7 +48,7 @@ const Bookings = () => {
       user.role === "mentor"
         ? await bookingApi.getMentorBookings()
         : await bookingApi.getStudentBookings();
-    console.log(res);
+  
 
     setBookings(res?.data?.bookings);
     setLoading(false);
@@ -59,7 +59,7 @@ const Bookings = () => {
   }, []);
 
   const closeModal = useCallback(() => {
-    console.log("hello modal", isRescheduleModalVisible);
+   
 
     if (isRescheduleModalVisible) {
       setIsRescheduleModalVisible(false);
@@ -94,15 +94,15 @@ const Bookings = () => {
       return true;
     });
   })();
-  console.log(filteredBookings);
+
 
   const fetchAvailableSlots = async (record) => {
     setLoadingSlots(true);
     try {
-      console.log(record.rescheduleSlots);
+    
 
       const slots = record.rescheduleSlots || [];
-      console.log(slots);
+  
 
       const formattedSlots = slots.flatMap((day) =>
         day.timeSlot.map((slot) => ({
@@ -226,11 +226,6 @@ const Bookings = () => {
           (response) => response.conflict
         );
 
-        console.log("Conflict check results:", {
-          responses: conflictResponses,
-          hasConflicts,
-        });
-
         if (hasConflicts) {
           throw new Error("One or more slots are already booked");
         }
@@ -256,10 +251,8 @@ const Bookings = () => {
   );
 
   const handleUserDetails = (record, user) => {
-    console.log("handleUserDetails: ", user, record);
 
     setselectedBooking(record);
-    console.log(selectedBooking);
   };
 
   const columns = [
@@ -318,7 +311,6 @@ const Bookings = () => {
         <AiOutlineEye
           size={25}
           onClick={() => {
-            console.log("user detail: ", record);
 
             if (record?.service?.courseType !== "fixed-course") {
               handleUserDetails(record, user);
@@ -342,7 +334,6 @@ const Bookings = () => {
   ];
 
   const handleEditBookingModal = (record) => {
-    console.log("handleEditService: ", record);
 
     const initialValues = {
       startDate: moment(record.startDate),
@@ -350,7 +341,6 @@ const Bookings = () => {
       startTime: moment(record.startTime, "HH:mm"),
       endTime: moment(record.endTime, "HH:mm"),
     };
-    console.log("initial values: ", initialValues);
 
     setEditBooking(record);
     form.resetFields();
@@ -439,7 +429,6 @@ const Bookings = () => {
   };
 
   useEffect(() => {
-    console.log(selectedBooking);
   }, [selectedBooking]);
   const handleNewSlotModal = (record) => {
     setEditBooking(record);

@@ -97,7 +97,6 @@ const getMentorBookingsByUsername = async (username) => {
 };
 
 const rescheduleBooking= async (bookingId, bookingData)=>{
-    console.log("reschedule: ",bookingData);
     
 return await BookingModel.findByIdAndUpdate(bookingId, {...bookingData}, {new: true})
 }

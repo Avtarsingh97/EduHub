@@ -82,8 +82,7 @@ const ServiceCardUserSide = ({
   };
 
   const handleSlotSelect = async (slot, service) => {
-    console.log(service);
-    console.log(slot);
+
 
     if (isSlotBooked(slot.date, slot.startTime, slot.endTime)) {
       return;
@@ -100,7 +99,7 @@ const ServiceCardUserSide = ({
       };
 
       const response = await bookingApi.bookService(bookingData);
-      console.log(response);
+  
       navigate(`/mentor/${username}/service/${service._id}/payment`, {
         state: {
           service,
@@ -116,14 +115,11 @@ const ServiceCardUserSide = ({
         },
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const handleFixedCourseBooking = async (service) => {
-    console.log(service);
-
-    console.log(service._id);
 
     try {
       const bookingData = {
@@ -134,7 +130,6 @@ const ServiceCardUserSide = ({
       };
 
       const response = await bookingApi.bookService(bookingData);
-      console.log("bookingId response: ", response);
       navigate(`/mentor/${username}/service/${service._id}/payment`, {
         state: {
           service,
@@ -150,7 +145,7 @@ const ServiceCardUserSide = ({
         },
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -35,7 +35,6 @@ const Payment = () => {
       
 
     const [searchTerm, setSearchTerm] = useState("");
-console.log(userDetails);
 
 const tableData = payments.map((payment, index) => ({
     key: index + 1,

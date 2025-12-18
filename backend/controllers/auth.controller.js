@@ -54,14 +54,11 @@ const signIn = async (req, res) => {
 
 const sendResetOtp = async (req, res) => {
     try {
-        console.log(req.body);
         
         const { email, token } = req.body;
-console.log(email, token);
 
         // 1. Check user exists
         const user = await userService.findUserByEmail(email);
-        console.log("user: ", user);
         
         if (!user) {
             return res.status(404).json({ message: "User does not exist" });
@@ -72,7 +69,7 @@ console.log(email, token);
 
         if(token){
             const resetEntry= await userService.updateExpiredTime(token, otp);
-            console.log("resend otp: ", resetEntry);
+           
                  
         }
         const Verificationtoken = await tokenService.generateVerificationToken(user._id)
@@ -106,8 +103,7 @@ console.log(email, token);
 const verifyOtpController = async (req, res) => {
     try {
         const { otp, token } = req.body;
-        console.log(otp);
-        console.log(token);
+      
 
 
         if (!otp || !token) {
@@ -115,7 +111,7 @@ const verifyOtpController = async (req, res) => {
         }
 
         const resetEntry = await authService.findOtpDocByToken(token);
-        console.log(resetEntry);
+       
 
         if (!resetEntry) {
             return res.status(400).json({ message: "Invalid or expired reset link." });
@@ -133,8 +129,7 @@ const verifyOtpController = async (req, res) => {
         }
 
         if (resetEntry.otp !== otp) {
-            console.log(resetEntry.otp);
-            console.log(otp);
+       
 
 
             return res.status(400).json({ message: "Incorrect OTP. Please try again." });
@@ -171,7 +166,7 @@ const updatePassword = async (req, res) => {
     }
 
     const resetEntry = await authService.findOtpDocByToken(token);
-    console.log(resetEntry);
+   
     if (!resetEntry) {
         return res.status(400).json({ message: "Invalid or expired reset link." });
     }
@@ -191,7 +186,7 @@ const updatePassword = async (req, res) => {
     }
 
     const updateResetEntry= await userService.updateResetEntry(token);
-    console.log("update Entry: ", updateResetEntry);
+   
     
     if(!updateResetEntry){
         return res.status(httpStatus.badRequest).json({success: false,

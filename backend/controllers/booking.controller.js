@@ -16,20 +16,7 @@ const initiateBookingAndPayment = async (req, res) => {
   // ONE-ON-ONE: Check slot availability and conflicts
   if (service.courseType === "one-on-one") {
     const { startTime, endTime } = req.body;
- console.log("bookingdate: ",bookingDate);
- console.log("newDate: ", new Date(bookingDate));
- 
- 
-    // Existing slot availability checks...
-    // const isSlotTaken = await BookingModel.exists({
-    //   mentor: service.mentor,
-    //   serviceType: 'one-on-one',
-    //   status: { $ne: 'cancelled' },
-    //   bookingDate: new Date(bookingDate),
-    //   $and: [
-    //     { startTime: { $lt: endTime }, endTime: { $gt: startTime } }
-    //   ]
-    // });
+
 
     const isSlotTaken = await BookingModel.exists({
       mentor: service.mentor,
@@ -39,8 +26,6 @@ const initiateBookingAndPayment = async (req, res) => {
       startTime: { $ne: endTime },
       endTime: { $ne: startTime }
     });
-    
-console.log(isSlotTaken);
 
     if (isSlotTaken) {
       return res.status(400).json({
@@ -49,6 +34,7 @@ console.log(isSlotTaken);
       });
     }
   }
+
   // FIXED COURSE: Just verify date is within course range
   else {
     const bookingDateObj = new Date(bookingDate);
@@ -118,10 +104,8 @@ const getBookingsByUsername = async (req, res) => {
 }
 
 const updateBookingById = async (req, res) => {
-  console.log('hello');
 
   const bookingData = req.body;
-  console.log(bookingData);
   const bookingId = bookingData._id
   if (!bookingId) {
     return res.status(httpStatus.badRequest).json({
@@ -209,9 +193,6 @@ const rescheduleBooking = async (req, res) => {
 
 const cancelBooking = async (req, res) => {
   const { bookingId } = req.body;
-  console.log(req.body);
-
-  console.log(bookingId);
   try {
     if (!bookingId) {
       return res.status(httpStatus.badRequest).json({

@@ -13,7 +13,7 @@ import {
 
 const Sidebar = ({ toggleSidebar, isSidebarOpen, isMobile, onClose }) => {
   const { user } = useUserStore();
-console.log(isMobile);
+
 
   const navItems = [
     {

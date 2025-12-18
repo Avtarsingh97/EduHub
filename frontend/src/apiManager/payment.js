@@ -4,9 +4,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/v1';
 
 const createOrder = async ({ amount, currency, name, description,mentorName, mentorEmail, bookingId }) => {
     try { 
-      console.log("Api manager: ", bookingId);
-      
-        console.log(API_URL);
+   
         
       const response = await AxiosInstances.post(`${API_URL}/payment/create-order`, {
         amount,
@@ -26,7 +24,7 @@ const createOrder = async ({ amount, currency, name, description,mentorName, men
 
 const verifyPayment = async (paymentData, bookingId) => {
     try {
-      console.log("apiManager:",bookingId);
+      
       
       const response = await AxiosInstances.post(`${API_URL}/payment/verify-payment/${bookingId}`, paymentData);
       return response.data;

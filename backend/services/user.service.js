@@ -37,7 +37,6 @@ return await passwordChangeLog.create({
 
 }
 const findUserByEmail = async (email) => {
-    console.log("userService: ", email);
     
     return await UserModel.findOne({ email });
   };
@@ -52,7 +51,6 @@ const findUserByEmail = async (email) => {
   };
 
   const updateResetEntry = async (token) => {
-    console.log("update called");
     
     return await passwordChangeLog.findOneAndUpdate(
       { tokenUsed: token }, 
@@ -62,14 +60,12 @@ const findUserByEmail = async (email) => {
   };
 
   const updateExpiredTime= async(token,newotp)=>{
-    console.log("new otp: ",newotp);
     
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000); 
     return await passwordChangeLogModel.findOneAndUpdate({tokenUsed: token}, {expiredAt: expiresAt, otp: newotp } ,{new: true})
   }
 
   const updatePasswordById=async(userId, newPassword)=>{
-    console.log("update");
     
     const user= await UserModel.findById(userId).select('+password');
     

@@ -94,8 +94,7 @@ const getServiceByMentor = async(mentorId) => {
 };
 
 const getServiceById = async(serviceId) => {
-    console.log(serviceId);
-    
+   
     return await ServiceModel.findById(serviceId)
 };
 

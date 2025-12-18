@@ -44,7 +44,6 @@ const Profile = () => {
   const handleDeletePhoto = async() => {
     try{
       setLoading(true)
-    console.log("Photo deleted");
     await userAPI.deletePhoto();
     setUser({ ...mentorData, photoUrl: "" });
     }catch(error){
@@ -137,7 +136,6 @@ const Profile = () => {
       .join("");
     return `https://ui-avatars.com/api/?name=${initials}&background=random&color=fff&size=256`;
   };
-  console.log(mentorData);
 
   return (
     

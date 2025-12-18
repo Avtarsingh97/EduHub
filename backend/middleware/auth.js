@@ -21,10 +21,8 @@ const protect = async(req,res,next)=>{
     }
     
     try {
-        console.log("decoding");
         
         const decoded= await verifyToken(token,"accessToken");
-        console.log("decoded: ",decoded);
         
         const currentUser = await getUserById(decoded._id);
         

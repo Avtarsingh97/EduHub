@@ -15,8 +15,6 @@ const {
   service,
   slotDetails
 } = location.state || {}; 
-console.log(location.state);
-console.log(service);
 
 const {date, startTime, endTime= "", duration, price}= slotDetails
 
@@ -57,7 +55,6 @@ const {date, startTime, endTime= "", duration, price}= slotDetails
       };
   
       const response = await bookingApi.bookService(bookingData);
-console.log(response);
 
       navigate(`/mentor/${username}/service/${serviceId}/payment`, {
         state: {

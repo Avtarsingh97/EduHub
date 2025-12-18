@@ -100,8 +100,6 @@ const changePasswordById= async(req, res, next)=>{
     }
 
     const user= await UserModel.findById(userId).select("+password");
-    console.log("user:",user);
-    console.log("oldpassword: ", oldPassword);
     
     if(!user || !(await user.isPasswordMatch(oldPassword))){
         

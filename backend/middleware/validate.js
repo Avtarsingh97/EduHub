@@ -17,7 +17,7 @@ module.exports = (schema,source=ValidationSource.BODY)=>{
             if(!error) return next();
             const {details} = error;
             const message = details.map((i)=>i.message.replace(/['"]+/g,"")).join(",");
-            console.log(message);
+          
             next(new ApiError(httpStatus.badRequest,message))
             
         } catch (error) {

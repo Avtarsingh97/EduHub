@@ -37,7 +37,6 @@ const createOrder = async (req, res) => {
         console.error("Razorpay error:", err);
         return res.status(400).send({ success: false, msg: "Something went wrong!" });
       }
- console.log(order);
  
       res.status(200).send({
         success: true,
@@ -53,7 +52,6 @@ const createOrder = async (req, res) => {
       });
     });
   } catch (error) {
-    console.error("Unexpected error:", error.message);
     res.status(500).send({ success: false, msg: "Server Error" });
   }
 };
@@ -64,12 +62,9 @@ const createOrder = async (req, res) => {
 
 
 const verifyPayment =async (req,res) => {
-  console.log(req.body);
-  console.log(req.params);
   
   const {razorpay_order_id, razorpay_signature, razorpay_payment_id }= req.body
   const bookingId= req.params.id
-  console.log("verifyPayment: ",bookingId);
   
   
   // const body = orderId + "|" + paymentId;
@@ -77,7 +72,6 @@ const verifyPayment =async (req,res) => {
     .createHmac("sha256", razorpayInstance.key_secret)
     .update(`${razorpay_order_id}|${razorpay_payment_id}`)
     .digest("hex");
-console.log(expectedSignature);
 
   if (expectedSignature !== razorpay_signature) {
     return res.status(400).json({ success: false, msg: "transaction is not legit" });
@@ -90,7 +84,6 @@ await paymentApi.createPayment(bookingId, razorpay_payment_id)
 
 const getPaymentsByMentorId= async(req, res, next)=>{
   try{
-  console.log(req.user._id);
   
   
   const mentorId= req.user._id
@@ -103,7 +96,6 @@ const getPaymentsByMentorId= async(req, res, next)=>{
   }
 
   const payments= await paymentApi.getPaymentsByMentorId(mentorId)
- console.log("payments: ", payments);
  
   if(!payments){
     return res.status(httpStatus.notFound)

@@ -46,7 +46,6 @@ const Chat = () => {
 
 
     const response = await chatApi.sendChat(inputMessage)
-    console.log(response);
     const botMessage = {
       id: messages.length + 2,
       text: response.data.data,

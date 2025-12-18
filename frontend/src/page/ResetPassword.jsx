@@ -50,7 +50,6 @@ const ResetPassword = () => {
   const handleResendOtp = async () => {
     setIsLoading(true);
     try {
-        console.log("handleResendOtp: ",token);
         
       await auth.sendOtp({email, token});
       toast.success("OTP resent to your email");

@@ -47,7 +47,6 @@ Instructions:
       question: question,
     });
 
-    console.log("Answer:", response.text);
     return response.text;
   } catch (err) {
     console.error("Error:", err.message);

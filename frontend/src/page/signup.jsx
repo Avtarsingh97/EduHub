@@ -38,7 +38,6 @@ const Signup = () => {
       ...rest,
       role,
     };
-    console.log(formData);
     
     try {
       const response = await auth.signup(formData);
@@ -48,7 +47,6 @@ const Signup = () => {
       navigate("/signin");
     } catch (error) {
       setIsLoading(false)
-      console.log("SignUp Error", error);
     }
   };
   return (

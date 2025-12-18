@@ -13,12 +13,9 @@ const PaymentPage = () => {
     slotDetails,
     mentor
   } = location.state || {}; 
-console.log(location.state);
-console.log(mentor);
 
 const {date, startTime, endTime= "", duration, price, bookingId}= slotDetails
 
-console.log('paymanet page: ', bookingId);
 
 
   const [mobileNumber, setMobileNumber] = useState("");
@@ -36,8 +33,6 @@ console.log('paymanet page: ', bookingId);
   
 
   const handlePaymentProcess = async () => {
-    console.log(mentor.name);
-    
     if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
       alert("Please enter a valid 10-digit mobile number");
       return;
@@ -71,7 +66,6 @@ console.log('paymanet page: ', bookingId);
         },
         handler: async (response) => {
           try {
-            console.log("bookingId: ", bookingId);
             
             await paymentApi.verifyPayment(response, bookingId);
   

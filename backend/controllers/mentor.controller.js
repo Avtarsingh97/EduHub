@@ -21,7 +21,6 @@ const getAllMentors = async (req, res, next) => {
       totalPages: Math.ceil(totalMentors / limit),
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Something went wrong!" });
   }
 };
@@ -108,7 +107,6 @@ const getTopMentors = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Something went wrong!" });
   }
 };

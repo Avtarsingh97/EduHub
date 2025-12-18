@@ -15,13 +15,13 @@ const getStudentBookings = async()=>{
 };
 
 const getBookingsByUsername = async(username)=>{
-    console.log(username);
+   
     
     return await AxiosInstances.get(`/booking/getBookings/${username}`)
 }
 
 const updateBooking= async(bookingData)=>{
-    console.log( bookingData);
+    
     
     
     return await AxiosInstances.post('/booking/updateBooking', bookingData)
@@ -33,14 +33,14 @@ const checkTimeConflict= async(data)=>{
 
 
 const rescheduleBooking= async(bookingData)=>{
-    console.log(bookingData);
+  
     
     return await AxiosInstances.patch('/booking/rescheduleSlot', bookingData)
 }
 
 const cancelBooking= async(bookingId)=>{
 
-    console.log(bookingId);
+   
     return await AxiosInstances.patch('/booking/cancelBooking', bookingId)
     
 }

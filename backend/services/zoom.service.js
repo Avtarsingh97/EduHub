@@ -2,15 +2,12 @@ const axios = require("axios");
 const config = require("../config");
 
 async function getZoomAuthToken() {
-  console.log('getZoomAuthToken');
   
   const auth = Buffer.from(
     `${config.zoom.clientId}:${config.zoom.clientSecret}`
   ).toString("base64");
-console.log(auth);
 
   try {
-    console.log('account Id: ', config.zoom.accountId);
     
     const response = await axios.post(
       `https://zoom.us/oauth/token?grant_type=account_credentials&account_id=${config.zoom.accountId}`,
@@ -21,7 +18,6 @@ console.log(auth);
         },
       }
     );
-  console.log('token response: ', response);
   
     return response.data.access_token;
   } catch (error) {
@@ -32,7 +28,6 @@ console.log(auth);
 const createScheduledZoomMeeting = async (startTime, duration) => {
   try {
     const accessToken = await getZoomAuthToken();
-    console.log('accessToken: ', accessToken);
     
     const response = await axios.post(
       `https://api.zoom.us/v2/users/me/meetings`,
@@ -58,7 +53,6 @@ const createScheduledZoomMeeting = async (startTime, duration) => {
         },
       }
     );
-console.log('scheduleZoomMeeting response: ', response);
 
     return response.data.join_url; // Return the meeting join URL
   } catch (error) {

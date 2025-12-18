@@ -34,7 +34,6 @@ const Signin = () => {
       navigate("/");
       toast.success("Login Successfully!");
     } catch (error) {
-      console.log("Singin Error :", error);
       toast.error("Login failed! Invalid credentials");
     }
     setIsLoading(false);

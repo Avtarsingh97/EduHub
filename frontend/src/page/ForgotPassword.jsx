@@ -17,7 +17,6 @@ const ForgotPassword = () => {
     try {
         setIsLoading(true)
       const res = await auth.sendOtp({ email: data.email });
-      console.log(res);
       
       toast.success("OTP sent to your email");
     
