@@ -3,17 +3,19 @@ const chatService= require("../services/chat.service")
 const sendAndRecieveMessage=async(req, res)=>{
     try{
         
-    const {questionData}= req.body;
+   const { questionData } = req.body;
 
-    if(!questionData){
-        return res.status(httpStatus.badRequest).json({success: false,
-            message: "question is missing"
-        })
-    }
+if (!questionData) {
+  return res.status(400).json({
+    message: "Question is required"
+  });
+}
 
-   const data = await chatService.askQuestion(questionData);
+const answer = await askQuestion(questionData);
 
-   return res.status(httpStatus.ok).json({success: true, data})
+res.status(200).json({
+  answer
+});
 }catch(error){
     console.log(error);
     
