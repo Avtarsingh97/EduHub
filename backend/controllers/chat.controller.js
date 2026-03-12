@@ -11,7 +11,7 @@ if (!questionData) {
   });
 }
 
-const answer = await askQuestion(questionData);
+const answer = await chatService.askQuestion(questionData);
 
 res.status(200).json({
   answer
