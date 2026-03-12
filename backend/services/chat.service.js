@@ -13,7 +13,7 @@ const fileData = fs.readFileSync(
 );
 
 const llm = new ChatGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_API_KEY,
+  apiKey: process.env.GEMINI_API_KEY,
   model: "gemini-1.5-flash",
   temperature: 0
 });
