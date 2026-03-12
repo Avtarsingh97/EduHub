@@ -7,10 +7,12 @@ const config = require("../config");
 const fileData = fs.readFileSync('./dataSource.txt', 'utf-8');
 
 const llm = new ChatOpenAI({
-  temperature: 0,
-  apiKey: config.TOGETHER_API_KEY,
-  baseURL: "https://api.together.xyz/v1",
   modelName: "mistralai/Mistral-7B-Instruct-v0.1",
+  temperature: 0,
+  openAIApiKey: config.TOGETHER_API_KEY,
+  configuration: {
+    baseURL: "https://api.together.xyz/v1"
+  }
 });
 
 async function askQuestion(question) {
@@ -37,7 +39,7 @@ Instructions:
       question: question,
     });
 
-    return response.content;
+    return response?.content || response?.text || "No response generated";
 
   } catch (err) {
     console.error("Error:", err.message);
