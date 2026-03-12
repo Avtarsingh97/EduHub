@@ -4,14 +4,19 @@ const { PromptTemplate } = require("@langchain/core/prompts");
 const { RunnableSequence } = require("@langchain/core/runnables");
 const config = require("../config");
 
-const fileData = fs.readFileSync('./dataSource.txt', 'utf-8');
+const path = require("path");
+
+const fileData = fs.readFileSync(
+  path.join(__dirname, "../dataSource.txt"),
+  "utf-8"
+);
 
 const llm = new ChatOpenAI({
-  modelName: "mistralai/Mistral-7B-Instruct-v0.1",
+  openAIApiKey: config.GROQ_API_KEY,
+  modelName: "llama3-8b-8192",
   temperature: 0,
-  openAIApiKey: config.TOGETHER_API_KEY,
   configuration: {
-    baseURL: "https://api.together.xyz/v1"
+    baseURL: "https://api.groq.com/openai/v1"
   }
 });
 
